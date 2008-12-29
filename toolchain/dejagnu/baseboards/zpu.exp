@@ -1,0 +1,74 @@
+# Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003 Free Software
+# Foundation, Inc.
+#
+# This file is part of DejaGnu.
+#
+# DejaGnu is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# DejaGnu is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with DejaGnu; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+# gdbserver running over ssh.
+
+load_generic_config "cygmon"
+
+load_lib "telnet.exp"
+
+process_multilib_options ""
+
+# The default compiler for this target.
+set_board_info compiler  "[find_gcc]"
+set_board_info cflags  "[newlib_include_flags] [libgloss_include_flags]"
+set_board_info ldflags  "[libgloss_link_flags] [newlib_link_flags] [board_info $board addl_link_flags] -Wl,--relax"
+
+# Standard remote protocol.
+set_board_info gdb_protocol "remote"
+set_board_info netport "localhost:4444"
+
+# We can't do input in GDB (yet! HA!). It *will* do output, hurrah.
+set_board_info gdb,noinferiorio 1
+# Or pass arguments.
+set_board_info gdb,noargs  1
+set_board_info noargs 1
+# Or do signals.
+set_board_info gdb,nosignals 1
+# Can't do hardware watchpoints, in general
+set_board_info gdb,no_hardware_watchpoints 1
+
+set_board_info shell_prompt "cygmon>"
+
+set_board_info gdb,do_reload_on_run 1
+#set_board_info gcc,no_trampolines 1
+set_board_info gcc,timeout 800
+set_board_info gdb,timeout 7200
+# 60 minutes... The simulator can be ridiculously slow when
+# simulating the feeble instruction set....
+set_board_info testcase_timeout 3600
+set_board_info gcc,stack_size 16384
+set_board_info file_transfer zpu
+
+
+#
+# Download $srcfile to $destfile on $desthost.
+#
+
+proc zpu_download {desthost srcfile destfile} {    
+	verbose "ZPU: Copying $srcfile to $destfile."
+    set status [catch "exec cp $srcfile $destfile" output]
+    if { $status == 0 } {
+	verbose "Copied $srcfile to $desthost:$destfile" 2
+	return $destfile
+    } else {
+	verbose "Download to $desthost failed, $output."
+	return ""
+    }
+}

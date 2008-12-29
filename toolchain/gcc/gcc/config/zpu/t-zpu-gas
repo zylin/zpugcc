@@ -1,0 +1,76 @@
+RANLIB_FOR_TARGET = ` \
+  if [ -f $(objdir)/../binutils/ranlib ] ; then \
+    echo $(objdir)/../binutils/ranlib ; \
+  else \
+    if [ "$(host)" = "$(target)" ] ; then \
+      echo ranlib; \
+    else \
+       if [ -f $(bindir)/$(target_noncanonical)-ranlib ] ; then \
+	  echo $(bindir)/$(target_noncanonical)-ranlib ; \
+       else \
+          t='$(program_transform_cross_name)'; echo ranlib | sed -e $$t ; \
+       fi; \
+    fi; \
+  fi`
+
+T_CPPFLAGS = -DUSE_GAS
+
+
+
+LIB1ASMSRC = 
+LIB1ASMFUNCS = 
+
+TARGET_LIBGCC2_CFLAGS = -DUSE_GAS -DIN_GCC 
+
+# Here we enumerate all the fn's in arit.c
+ZPU_ARIT_FILES = _mulsi3.c _xordi3.c  
+
+LIB2FUNCS_EXTRA = $(srcdir)/config/udivmod.c $(srcdir)/config/divmod.c $(srcdir)/config/udivmodsi4.c $(ZPU_ARIT_FILES) 
+ZPU_LIB1CSRC = $(srcdir)/config/zpu/arit.c
+
+# Don't compile with -g1 this reduces the size of some sections (.eh_frame).
+# FIX!!! adding "-g" compiler option breaks -O3
+LIBGCC2_DEBUG_CFLAGS =
+LIBGCC2_CFLAGS =  $(LIBGCC2_INCLUDES) $(TARGET_LIBGCC2_CFLAGS) $(LIBGCC2_DEBUG_CFLAGS) $(GTHREAD_FLAGS) -DIN_LIBGCC2 $(MULTILIB_CFLAGS)
+
+# We want fine grained libraries, so use the new code to build the
+# floating point emulation libraries.
+
+
+FPBIT = fp-bit.c
+DPBIT = dp-bit.c
+
+dp-bit.c: $(srcdir)/config/fp-bit.c
+	echo '/* ZPU dp-bit */' > dp-bit.c
+	cat $(srcdir)/config/fp-bit.c >> dp-bit.c
+
+fp-bit.c: $(srcdir)/config/fp-bit.c
+	echo '#define FLOAT' > fp-bit.c
+	cat $(srcdir)/config/fp-bit.c >> fp-bit.c
+
+
+# Assemble startup files.
+$(T)crti.o: $(srcdir)/config/zpu/crti.asm $(GCC_PASSES)
+	$(GCC_FOR_TARGET) $(GCC_CFLAGS) $(MULTILIB_CFLAGS) $(INCLUDES) \
+	-c -o $(T)crti.o -x assembler-with-cpp $(srcdir)/config/zpu/crti.asm
+
+$(T)crtn.o: $(srcdir)/config/zpu/crtn.asm $(GCC_PASSES)
+	$(GCC_FOR_TARGET) $(GCC_CFLAGS) $(MULTILIB_CFLAGS) $(INCLUDES) \
+	-c -o $(T)crtn.o -x assembler-with-cpp $(srcdir)/config/zpu/crtn.asm
+
+# The fixed-point arithmetic code is in one file, arit.c,
+# similar to libgcc2.c (or the old libgcc1.c).  We need to
+# "split it up" with one file per define.
+$(ZPU_ARIT_FILES): $(ZPU_LIB1CSRC)
+	name=`echo $@ | sed -e 's,.*/,,' | sed -e 's,.c$$,,'`; \
+	echo "#define L$$name" > tmp-$@ \
+	&& echo '#include "$<"' >> tmp-$@ \
+	&& mv -f tmp-$@ $@
+
+MULTILIB_OPTIONS = Os/O2/O3
+MULTILIB_DIRNAMES = small fast ludicrous
+
+EXTRA_MULTILIB_PARTS = crtbegin.o crtend.o  crti.o crtn.o
+
+LIBGCC = stmp-multilib
+INSTALL_LIBGCC = install-multilib

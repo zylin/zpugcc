@@ -1,0 +1,164 @@
+; Options for the Java front end.
+; Copyright (C) 2003 Free Software Foundation, Inc.
+;
+; This file is part of GCC.
+;
+; GCC is free software; you can redistribute it and/or modify it under
+; the terms of the GNU General Public License as published by the Free
+; Software Foundation; either version 2, or (at your option) any later
+; version.
+; 
+; GCC is distributed in the hope that it will be useful, but WITHOUT ANY
+; WARRANTY; without even the implied warranty of MERCHANTABILITY or
+; FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+; for more details.
+; 
+; You should have received a copy of the GNU General Public License
+; along with GCC; see the file COPYING.  If not, write to the Free
+; Software Foundation, 59 Temple Place - Suite 330, Boston, MA
+; 02111-1307, USA.
+
+; See c.opt for a description of this file's format.
+
+; Please try to keep this file in ASCII collating order.
+
+Language
+Java
+
+I
+Java Joined
+; Documented for C
+
+M
+Java
+; Documented for C
+
+MD_
+Java Undocumented
+; Documented for C
+
+MF
+Java Separate
+; Documented for C
+
+MM
+Java
+; Documented for C
+
+MMD_
+Java Undocumented
+; Documented for C
+
+MP
+Java
+; Documented for C
+
+MT
+Java Separate
+; Documented for C
+
+Wall
+Java
+; Documented for C
+
+Wdeprecated
+Java
+Warn if deprecated class, method, or field is used
+
+Wextraneous-semicolon
+Java
+Warn if deprecated empty statements are found
+
+Wout-of-date
+Java
+Warn if .class files are out of date
+
+Wredundant-modifiers
+Java
+Warn if modifiers are specified when not necessary
+
+fCLASSPATH=
+Java JoinedOrMissing RejectNegative
+--CLASSPATH	Deprecated; use --classpath instead
+
+fassert
+Java
+
+fassume-compiled
+Java
+
+fassume-compiled=
+Java JoinedOrMissing
+
+fbootclasspath=
+Java JoinedOrMissing RejectNegative
+--bootclasspath=<path>	Replace system path
+
+fcheck-references
+Java
+
+fclasspath=
+Java JoinedOrMissing RejectNegative
+--classpath=<path>	Set class path
+
+fcompile-resource=
+Java Joined RejectNegative
+
+fdump-
+Java Joined RejectNegative
+
+femit-class-file
+Java
+
+femit-class-files
+Java
+
+fencoding=
+Java Joined RejectNegative
+--encoding=<encoding>	Choose input encoding (defaults from your locale)
+
+fextdirs=
+Java Joined RejectNegative
+
+ffilelist-file
+Java
+
+fforce-classes-archive-check
+Java
+Always check for non gcj generated classes archives
+
+fhash-synchronization
+Java
+
+findirect-dispatch
+Java
+Use offset tables for virtual method calls
+
+finline-functions
+Java
+
+fjni
+Java
+Assume native functions are implemented using JNI
+
+foptimize-static-class-initialization
+Java
+Enable optimization of static class initialization code
+
+foutput-class-dir=
+Java Joined RejectNegative
+
+fstore-check
+Java
+Enable assignability checks for stores into object arrays
+
+fuse-boehm-gc
+Java
+
+fuse-divide-subroutine
+Java
+
+version
+Java
+
+; This comment is to ensure we retain the blank line above.

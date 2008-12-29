@@ -1,0 +1,260 @@
+2004-01-30  Ben Elliston  <bje@wasabisystems.com>
+
+	* DejaGnu 1.4.4 released.
+
+2004-01-27  Ben Elliston  <bje@wasabisystems.com>
+
+	* Makefile.am (tarball): Depend on book1.html, not overview.html.
+	Don't echo needless messages. Portably copy the source tree to
+	dejagnu-${VERSION}.  Portably copy documentation files from the
+	source tree to the distribution directory.  Don't copy RPM-related
+	files -- leave that to the rpm target.
+	(snapshot): Remove target.
+	(overview.html): Rename target from this ..
+	(book1.htm): .. to this.
+	(rpm): Portably copy tar file to SOURCES directory.
+	(deb): Depend on book1.html, not overview.html.
+	(dist-hook): Depend on book1.html, not overview.html.
+	* Makefile.in: Rebuild.
+	* doc/Makefile.am (TARGETS): Depend on book1.html.
+	(book1.html): Depend on html/book1.html.
+	(overview.dvi): Remove target.
+	* doc/Makefile.in: Rebuild.
+
+2004-01-27  Ben Elliston  <bje@wasabisystems.com>
+
+	* Clean.tcl: Run tclsh via /usr/bin/env for portability.
+	(cleanfiles): Concatenate regular filenames that match .*.
+
+2004-01-27  Ben Elliston  <bje@wasabisystems.com>
+
+	* doc/overview: Remove all files.
+
+2003-12-03  Ben Elliston  <bje@wasabisystems.com>
+
+	* testsuite/runtest.all/utils.test: Fix a test for proc find which
+	assumed that "subsubfile1" would appear at the end of the returned
+	list.  Adjust to use a more robust regular expression.
+
+2003-11-26  Ben Elliston  <bje@wasabisystems.com>
+
+	* doc/overview.sgml (version): Update.
+	* doc/overview/installation.html: Likewise.
+
+	* packaging/rpm/dejagnu.spec: Update version numbers throughout.
+	* packaging/pkg/pkginfo: Likewise.
+	* packaging/depot/dejagnu.psf: Likewise.
+	
+2003-10-25  Ben Elliston  <bje@wasabisystems.com>
+
+	* runtest.exp (frame_version): Bump version.	
+	* configure.in (AM_INIT_AUTOMAKE): Likewise.
+	* configure: Regenerate.
+
+2003-10-16  Rob Savoye   <rob@welcomehome.org>
+
+	* packaging/prototype: Remove sh-hms-sim.exp, add sh-sim.
+
+2003-10-13  Ben Elliston  <bje@wasabisystems.com>
+
+	* baseboards/sh-hms-sim.exp: Remove. Replaced by sh-sim.exp.
+
+2003-10-11  Corinna Vinschen  <vinschen@redhat.com>
+
+	* baseboards/sh-sim.exp: New file.
+
+2003-10-11  Ben Elliston  <bje@wasabisystems.com>
+
+	* NEWS: Tidy.
+	* AUTHORS: Don't list maintainers, reference MAINTAINERS instead.
+
+2003-10-08  Ben Elliston  <bje@wasabisystems.com>
+
+	* i960glue.c: Remove.
+	* packaging/pkg/prototype: Remove i960glue.c.
+
+2003-10-07  Ben Elliston  <bje@wasabisystems.com>
+
+	* contrib/README: Remove.
+	* contrib/testit: Remove bitrotten script.
+	* contrib/test-g++: Likewise.
+	* contrib/test-tool: Likewise.
+
+2003-08-23  Ben Elliston  <bje@wasabisystems.com>
+
+	* TODO: Tidy.
+	* contrib/README: Bring up to date.
+
+2003-08-23  Corinna Vinschen  <vinschen@redhat.com>
+
+	* config/sid.exp: Add gdb settings to use no hardware watchpoints.
+
+2003-08-23  Ben Elliston  <bje@wasabisystems.com>
+
+	* README: Update section on reporting bugs.
+
+2003-08-22  Ben Elliston  <bje@wasabisystems.com>
+
+	* lib/kermit.exp: Document procs.
+	* lib/ftp.exp: Likewise.
+
+2003-08-19  Ben Elliston  <bje@wasabisystems.com>
+
+	* contrib/testit: Run wish via /usr/bin/env for portability.
+
+2003-08-18  Ben Elliston  <bje@wasabisystems.com>
+
+	* Makefile.am: Tidy comments and unused command lines.
+	* Makefile.in: Regenerate.
+	* testsuite/libdejagnu/Makefile.in: Likewise.
+
+	* contrib/bluegnu2.0.3: Remove unsupported subtree.
+
+2003-08-18  Ben Elliston  <bje@wasabisystems.com>
+
+	* MAINTAINERS: New file.
+
+2003-08-17  Ben Elliston  <bje@wasabisystems.com>
+
+	* doc/Makefile.am (AUTOMAKE_OPTIONS): Remove empty variable.
+	* doc/Makefile.in: Regenerate.
+	
+2003-08-16  Ben Elliston  <bje@wasabisystems.com>
+
+	* doc/overview.sgml (overview): Start overhauling chapter.
+	
+	* doc/README.Writers: New document on style conventions.
+	* doc/ref.sgml: Replace "test suite" with "testsuite" throughout.
+	* doc/user.sgml: Likewise.
+	* doc/overview.sgml: Likewise.
+	* doc/dejagnu.texi (Design Goals): Change "Deja Gnu" to "DejaGnu".
+
+2003-08-12  Ben Elliston  <bje@wasabisystems.com>
+
+	* Makefile.am (tarball): Update path to dejagnu.spec.
+	(rpmspec): Likewise.
+	(deb): Likewise, update path to package metafiles.
+	(solpkg): Likewise.
+	(hpdepot): Likewise.
+	* Makefile.in: Regenerate.
+	* aclocal.m4: Likewise.
+	* configure: Likewise.
+	* doc/Makefile.in: Likewise.
+	* example/Makefile.in: Likewise.
+	* testsuite/Makefile.in: Likewise.
+	* deb: Move from here ..
+	* packaging/deb: .. to here.
+	* redhat: Move from here ..
+	* packaging/rpm: .. to here.
+	* depot: Move from here ..
+	* packaging/depot: .. to here.
+	* pkg: Move from here ..
+	* packaging/pkg: .. to here.
+
+	* testsuite/libdejagnu/Makefile.am (CXXFLAGS): Rename from this ..
+	(AM_CXXFLAGS): .. to this, in order to suppress Automake warning.
+	* testsuite/libdejagnu/Makefile.in: Regenerate.
+
+2003-08-07  Ben Elliston  <bje@wasabisystems.com>
+
+	* config/ddb.exp (${board}_init): Fix thinko: use Tcl incr command
+	to increment count rather than count++ as in C.
+
+2003-08-06  Ben Elliston  <bje@wasabisystems.com>
+
+	* lib/remote.exp: Replace "TCL" with "Tcl".
+
+2003-07-30  Ben Elliston  <bje@wasabisystems.com>
+
+	* doc/runtest.1: Replace "TCL" with "Tcl".
+	Make last revision date current.
+
+2003-07-29  Ben Elliston  <bje@wasabisystems.com>
+
+	* doc/overview.sgml: Replace "NT" with "Windows", correct Cygwin
+	URLs and other stylistic improvements.
+	* doc/ref.sgml: Likewise.
+	* doc/user.sgml: Likewise.
+
+2003-07-25  Mike Stump  <mrs@apple.com>
+
+	* lib/target.exp (prune_warnings): Handle "nfs server .* not
+	responding" and "nfs server .* is alive again".
+
+2003-07-20  Ben Elliston  <bje@wasabisystems.com>
+
+	* config.guess: Update to most recent version.
+	* config.sub: Ditto.
+	* AUTHORS: Add self to list of maintainers.
+
+2003-07-25  Jim Dein  <jdein@deinji5.apple.com>
+
+         * lib/utils.exp (find): Fix double recursion bug.
+
+2002-02-25  Jackie Smith Cashion  <jsmith@redhat.com>
+
+        * baseboards/am33_2.0-libremote.exp: New file.
+
+2000-11-21  Drew Moseley  <dmoseley@redhat.com>
+
+        * baseboards/mn10300-cygmon.exp: Use the am33-2 flag for the
+        ASB2303 board.
+
+2000-08-10  Drew Moseley  <dmoseley@cygnus.com>
+
+        * baseboards/mn10300-cygmon.exp: Added support for Cygmon based
+	ASB2303 board.
+
+2003-06-13  Phil Edwards <pme@devphil.com>
+
+	* baseboards/mips64-sim.exp, baseboards/mips-sim.exp,
+	baseboards/mips-sim-idt32.exp, baseboards/mips-sim-idt64.exp: Use
+	only -T[linker] instead of -Wl,-T[linker].
+	
+2003-06-13  Jason Thorpe  <thorpej@wasabisystems.com>
+
+	* lib/target.exp (prune_warnings): Add two more linker
+	warning patterns for warnings generated by modern verions
+	of NetBSD.
+
+2003-05-12  H.J. Lu <hongjiu.lu@intel.com>
+
+        * lib/libgloss.exp (build_wrapper): Add -Wl,-wrap,_exit.
+
+2003-05-09  H.J. Lu <hongjiu.lu@intel.com>
+
+        * runtest: Fix a typo.
+
+2003-05-03  Nitin Dhavale <nitinpdhavale@indiatimes.com>
+
+	* doc/user.sgml: Clarify how to set the verbose option.
+
+2003-03-28 Chris Demetriou <cgd@broadcom.com>
+
+        * lib/framework.exp (check_conditional_xfail): Adjust so that
+        an empty 'includes' list matches all sets of flags.
+        * doc/dejagnu.texi: Document the above.
+        * doc/ref.sgml: Likewise.
+
+2003-03-27  David Heine <dlheine@tensilica.com>
+
+        * baseboards/xtensa-sim.exp: Fix a syntax error.
+
+2003-03-16  Rob Savoye  <rob@direwolf.welcomehome.org>
+
+	* lib/unix.exp: Preserve the value of LD_LIBRARY_PATH, rather
+	than stomp on it. This is based on a patch from Brendan Conoboy
+	<blc@redhat.com>.
+	* Most files: Update copyright dates.
+
+2003-03-13  Mike Stump  <mrs@apple.com>
+
+        * lib/dg.exp(dg-test): Add compiler flags to testcase name, to
+	help ensure uniqueness.
+
+2003-03-05  Alexandre Oliva  <aoliva@redhat.com>
+
+        * lib/remote.exp (standard_download, standard_upload): Support
+        nfsdir and nfsroot_server.
+
+See ChangeLog.0 for earlier changes.

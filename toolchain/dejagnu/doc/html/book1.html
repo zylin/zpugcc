@@ -1,0 +1,637 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>DejaGnu</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="NEXT"
+TITLE="Abstract"
+HREF="f40.html"></HEAD
+><BODY
+CLASS="BOOK"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="BOOK"
+><A
+NAME="AEN1"
+></A
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+></A
+>DejaGnu</H1
+><H2
+CLASS="SUBTITLE"
+>The GNU Testing Framework</H2
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN9"
+></A
+>Rob Savoye</H3
+><DIV
+CLASS="AFFILIATION"
+><SPAN
+CLASS="ORGNAME"
+>Free Software Foundation<BR></SPAN
+></DIV
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 2002 by Free Software Foundation, Inc.</P
+><SPAN
+CLASS="RELEASEINFO"
+> New release<BR></SPAN
+><HR></DIV
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="f40.html"
+>Abstract</A
+></DT
+><DT
+><A
+HREF="c50.html"
+>Overview</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c50.html#WHATIS"
+>What is DejaGnu ?</A
+></DT
+><DT
+><A
+HREF="x81.html"
+>What's New In This Release</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x81.html#CYGWIN"
+>Windows Support</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x107.html"
+>Design Goals</A
+></DT
+><DT
+><A
+HREF="x134.html"
+>A POSIX conforming test framework</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c203.html"
+>Getting DejaGnu up and running</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c203.html#AEN210"
+>Test your installation</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c203.html#AEN220"
+>Windows</A
+></DT
+><DT
+><A
+HREF="c203.html#AEN224"
+>Getting the source code for the calc example</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x227.html"
+>Create a minimal project, e.g. calc</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x227.html#AEN230"
+>A simple project without the GNU autotools</A
+></DT
+><DT
+><A
+HREF="x227.html#AEN235"
+>Using autoconf/autoheader/automake</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x276.html"
+>Our first automated tests</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x276.html#AEN278"
+>Running the test for the calc example</A
+></DT
+><DT
+><A
+HREF="x276.html#AEN286"
+>The various config files or how to avoid warnings</A
+></DT
+><DT
+><A
+HREF="x276.html#AEN303"
+>When trouble strikes</A
+></DT
+><DT
+><A
+HREF="x276.html#AEN312"
+>Testing &#8220;Hello world&#8221; locally</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x319.html"
+>A first remote test</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x319.html#AEN322"
+>Setup telnet to your own host</A
+></DT
+><DT
+><A
+HREF="x319.html#AEN331"
+>A test case for login via telnet</A
+></DT
+><DT
+><A
+HREF="x319.html#AEN357"
+>Remote testing &#8220;Hello world&#8221;</A
+></DT
+><DT
+><A
+HREF="x319.html#AEN372"
+>Transferring files from/to the target</A
+></DT
+><DT
+><A
+HREF="x319.html#AEN382"
+>Preparing for crosscompilation</A
+></DT
+><DT
+><A
+HREF="x319.html#AEN393"
+>Remote testing of calc</A
+></DT
+><DT
+><A
+HREF="x319.html#AEN396"
+>Using Windows as host and vxWorks as target</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+><A
+HREF="c401.html"
+>Running Tests</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c401.html#MAKECHECK"
+>Make check</A
+></DT
+><DT
+><A
+HREF="x428.html"
+>Runtest</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x428.html#OUTPUTS"
+>Output States</A
+></DT
+><DT
+><A
+HREF="x428.html#INVOKING"
+>Invoking Runtest</A
+></DT
+><DT
+><A
+HREF="x428.html#COMMON"
+>Common Options</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x755.html"
+>The files DejaGnu produces.</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x755.html#SUM"
+>Summary File</A
+></DT
+><DT
+><A
+HREF="x755.html#LOG"
+>Log File</A
+></DT
+><DT
+><A
+HREF="x755.html#DEBUGFILE"
+>Debug Log File</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+><A
+HREF="c848.html"
+>Customizing DejaGnu</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c848.html#LOCAL"
+>Local Config File</A
+></DT
+><DT
+><A
+HREF="x916.html"
+>Global Config File</A
+></DT
+><DT
+><A
+HREF="x935.html"
+>Board Config File</A
+></DT
+><DT
+><A
+HREF="x953.html"
+>Remote Host Testing</A
+></DT
+><DT
+><A
+HREF="x992.html"
+>Config File Values</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x992.html#OPTIONDEFS"
+>Command Line Option Variables</A
+></DT
+><DT
+><A
+HREF="x992.html#PERSONAL"
+>Personal Config File</A
+></DT
+></DL
+></DD
+></DL
+></DD
+><DT
+><A
+HREF="c1099.html"
+>Extending DejaGnu</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1099.html#ADDSUITE"
+>Adding A New Testsuite</A
+></DT
+><DT
+><A
+HREF="x1107.html"
+>Adding A New Tool</A
+></DT
+><DT
+><A
+HREF="x1195.html"
+>Adding A New Target</A
+></DT
+><DT
+><A
+HREF="x1214.html"
+>Adding A New Board</A
+></DT
+><DT
+><A
+HREF="x1234.html"
+>Board Config File Values</A
+></DT
+><DT
+><A
+HREF="x1445.html"
+>Writing A Test Case</A
+></DT
+><DT
+><A
+HREF="x1462.html"
+>Debugging A Test Case</A
+></DT
+><DT
+><A
+HREF="x1493.html"
+>Adding A Test Case To A Testsuite.</A
+></DT
+><DT
+><A
+HREF="x1522.html"
+>Hints On Writing A Test Case</A
+></DT
+><DT
+><A
+HREF="x1551.html"
+>Special variables used by test cases.</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c1584.html"
+>Unit Testing</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1584.html#UNITTEST"
+>What Is Unit Testing ?</A
+></DT
+><DT
+><A
+HREF="x1590.html"
+>The dejagnu.h Header File</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c1593.html"
+>Reference</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c1593.html#OBTAINING"
+>Obtaining DejaGnu</A
+></DT
+><DT
+><A
+HREF="x1600.html"
+>Installation</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x1600.html#CONFIGURING"
+>Configuring DejaGnu</A
+></DT
+><DT
+><A
+HREF="x1600.html#INSTALLING"
+>Installing DejaGnu</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x1655.html"
+>Builtin Procedures</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x1655.html#COREPROCS"
+>Core Internal Procedures</A
+></DT
+><DT
+><A
+HREF="x1655.html#REMOTEPROCS"
+>Procedures For Remote Communication</A
+></DT
+><DT
+><A
+HREF="x1655.html#CONNPROCS"
+>Procedures For Using Utilities to Connect</A
+></DT
+><DT
+><A
+HREF="x1655.html#TARGETPROCS"
+>Procedures For Target Boards</A
+></DT
+><DT
+><A
+HREF="x1655.html#TARGETDB"
+>Target Database Procedures</A
+></DT
+><DT
+><A
+HREF="x1655.html#PLATFORMPROCS"
+>Platform Dependant Procedures</A
+></DT
+><DT
+><A
+HREF="x1655.html#UTILPROCS"
+>Utility Procedures</A
+></DT
+><DT
+><A
+HREF="x1655.html#LIBGLOSS"
+>Libgloss, A Free BSP</A
+></DT
+><DT
+><A
+HREF="x1655.html#DEBUGPROCS"
+>Procedures for debugging your Tcl code.</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x5058.html"
+>File Map</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="c5112.html"
+>Unit Testing API</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c5112.html#CUNIT"
+>C Unit Testing API</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="c5112.html#PASSFUNC"
+>Pass Function</A
+></DT
+><DT
+><A
+HREF="c5112.html#FAILFUNC"
+>Fail Function</A
+></DT
+><DT
+><A
+HREF="c5112.html#UNTESTEDFUNC"
+>Untested Function</A
+></DT
+><DT
+><A
+HREF="c5112.html#UNRESOLVEDFUNC"
+>Unresolved Function</A
+></DT
+><DT
+><A
+HREF="c5112.html#TOTALSFUNC"
+>Totals Function</A
+></DT
+></DL
+></DD
+><DT
+><A
+HREF="x5158.html"
+>C++ Unit Testing API</A
+></DT
+><DD
+><DL
+><DT
+><A
+HREF="x5158.html#PASSMETH"
+>Pass Method</A
+></DT
+><DT
+><A
+HREF="x5158.html#FAILMETH"
+>Fail Method</A
+></DT
+><DT
+><A
+HREF="x5158.html#UNTESTEDMETH"
+>Untested Method</A
+></DT
+><DT
+><A
+HREF="x5158.html#UNRESOLVEDMETH"
+>Unresolved Method</A
+></DT
+><DT
+><A
+HREF="x5158.html#TOTALSMETH"
+>Totals Method</A
+></DT
+></DL
+></DD
+></DL
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="f40.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Abstract</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

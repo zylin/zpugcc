@@ -1,0 +1,193 @@
+This is pdfTeXk, Version 3.14159-1.10b (Web2C 7.4.5) (format=pdftex 2004.10.2)  3 OCT 2004 16:12
+ %&-line parsing enabled.
+**/cygdrive/c/eclipse/workspace/ecosboard/zpu/toolchain/binutils/gas/doc/intern
+als.texi
+
+(/cygdrive/c/eclipse/workspace/ecosboard/zpu/toolchain/binutils/gas/doc/interna
+ls.texi{/usr/share/texmf/pdftex/config/pdftex.cfg}
+(/usr/share/texmf/tex/texinfo/texinfo.tex
+Loading texinfo [version 2003-02-03.16]: Basics,
+\bindingoffset=\dimen16
+\normaloffset=\dimen17
+\pagewidth=\dimen18
+\pageheight=\dimen19
+\outerhsize=\dimen20
+\outervsize=\dimen21
+\cornerlong=\dimen22
+\cornerthick=\dimen23
+\topandbottommargin=\dimen24
+\headlinebox=\box16
+\footlinebox=\box17
+\margin=\insert252
+\EMsimple=\toks12
+\groupbox=\box18
+\groupinvalidhelp=\toks13
+\mil=\dimen25
+\exdentamount=\skip18
+\inmarginspacing=\skip19
+ pdf,
+\tempnum=\count26
+\lnkcount=\count27
+\filename=\toks14
+\filenamelength=\count28
+\pgn=\count29
+\toksA=\toks15
+\toksB=\toks16
+\toksC=\toks17
+\toksD=\toks18
+\boxA=\box19
+\countA=\count30
+
+(/usr/share/texmf/pdftex/plain/misc/pdfcolor.tex) fonts,
+\sffam=\fam8
+\textleading=\dimen26
+\mainmagstep=\count31
+\fontdepth=\count32
+ page headings,
+\titlepagetopglue=\skip20
+\titlepagebottomglue=\skip21
+\evenheadline=\toks19
+\oddheadline=\toks20
+\evenfootline=\toks21
+\oddfootline=\toks22
+
+tables,
+\tableindent=\dimen27
+\itemindent=\dimen28
+\itemmargin=\dimen29
+\itemmax=\dimen30
+\itemno=\count33
+\multitableparskip=\skip22
+\multitableparindent=\skip23
+\multitablecolspace=\dimen31
+\multitablelinespace=\skip24
+\colcount=\count34
+\savedfootnotes=\box20
+ conditionals, indexing,
+\secondaryindent=\skip25
+\partialpage=\box21
+\doublecolumnhsize=\dimen32
+ sectioning,
+\chapno=\count35
+\secno=\count36
+\subsecno=\count37
+\subsubsecno=\count38
+\appendixno=\count39
+\absseclevel=\count40
+\secbase=\count41
+\chapheadingskip=\skip26
+\secheadingskip=\skip27
+\subsecheadingskip=\skip28
+ toc,
+\tocfile=\write0
+\contentsrightmargin=\skip29
+\savepageno=\count42
+\lastnegativepageno=\count43
+\shortappendixwidth=\dimen33
+\tocindent=\dimen34
+ environments,
+\errorbox=\box22
+\lispnarrowing=\skip30
+\envskipamount=\skip31
+\circthick=\dimen35
+\cartouter=\dimen36
+\cartinner=\dimen37
+\normbskip=\skip32
+\normpskip=\skip33
+\normlskip=\skip34
+\lskip=\skip35
+\rskip=\skip36
+\tabw=\dimen38
+ defuns,
+\defbodyindent=\skip37
+\defargsindent=\skip38
+\deflastargmargin=\skip39
+\parencount=\count44
+ macros,
+\macscribble=\write1
+\paramno=\count45
+\macname=\toks23
+
+cross references,
+\auxfile=\write2
+\savesfregister=\count46
+\footnoteno=\count47
+ (/usr/share/texmf/tex/generic/misc/epsf.tex
+\epsffilein=\read0
+\epsfframemargin=\dimen39
+\epsfframethickness=\dimen40
+\epsfrsize=\dimen41
+\epsftmp=\dimen42
+\epsftsize=\dimen43
+\epsfxsize=\dimen44
+\epsfysize=\dimen45
+\pspoints=\dimen46
+\epsfnoopenhelp=\toks24
+)
+\noepsfhelp=\toks25
+ localization,
+\nolanghelp=\toks26
+\defaultparindent=\dimen47
+
+and turning on texinfo input format.) (./internals.aux)
+@cpindfile=@write3
+@fnindfile=@write4
+@vrindfile=@write5
+@tpindfile=@write6
+@kyindfile=@write7
+@pgindfile=@write8
+ (Assembler Internals)
+\openout0 = `internals.toc'.
+
+
+(GAS versions) [1
+\openout2 = `internals.aux'.
+
+\openout3 = `internals.cp'.
+
+\openout4 = `internals.fn'.
+
+\openout5 = `internals.vr'.
+
+\openout6 = `internals.tp'.
+
+\openout7 = `internals.ky'.
+
+\openout8 = `internals.pg'.
+
+{/usr/share/texmf/dvips/config/pdftex.map}] (Data types)
+[2] [3] [4] [5] [6] [7] [8] [9] [10] (What GAS does when it runs) [11]
+(Porting GAS) [12] [13] [14] [15]
+Underfull \hbox (badness 10000) in paragraph at lines 1015--1017
+ []/cmr10@10.95pt/Same as TC[]START[]LABEL, but should be used in-stead of
+
+@hbox(7.60416+2.12917)x433.62, glue set 5.90704
+.@glue(@leftskip) 57.81621
+.@hbox(0.0+0.0)x0.0
+./cmr10@10.95pt/S
+./cmr10@10.95pt/a
+./cmr10@10.95pt/m
+.etc.
+
+[16] [17] [18] [19] [20] [21] [22] [23] [24] [25] (Relaxation) [26] [27]
+[28] (Broken words) [29] (Internal functions) [30] [31] (Test suite) [32]
+[33] ) 
+Here is how much of TeX's memory you used:
+ 1611 strings out of 12594
+ 17806 string characters out of 1216302
+ 38509 words of memory out of 1000001
+ 2499 multiletter control sequences out of 10000+50000
+ 31953 words of font info for 111 fonts, out of 500000 for 1000
+ 19 hyphenation exceptions out of 1000
+ 12i,5n,15p,290b,354s stack positions out of 300i,100n,500p,50000b,4000s
+ 204 PDF objects out of 65536
+ 56 named destinations out of 20000
+ 0 words of extra memory for PDF output out of 65536
+{/usr/share/texmf/dvips/tetex/f7b6d320.enc}</usr/share/texmf/fonts/type1/
+bluesky/cm/cmss10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx10.pfb>{/usr
+/share/texmf/dvips/tetex/09fbbfac.enc}</usr/share/texmf/fonts/type1/bluesky/cm/
+cmsltt10.pfb>{/usr/share/texmf/dvips/tetex/bbad153f.enc}</usr/share/texmf/fonts
+/type1/bluesky/cm/cmsy10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsl10.pf
+b></usr/share/texmf/fonts/type1/bluesky/cm/cmtt10.pfb></usr/share/texmf/fonts/t
+ype1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmbx12.pfb>
+Output written on internals.pdf (33 pages, 169878 bytes).

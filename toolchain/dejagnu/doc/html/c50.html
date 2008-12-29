@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<HTML
+><HEAD
+><TITLE
+>Overview</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.76b+
+"><LINK
+REL="HOME"
+TITLE="DejaGnu"
+HREF="book1.html"><LINK
+REL="PREVIOUS"
+TITLE="Abstract"
+HREF="f40.html"><LINK
+REL="NEXT"
+TITLE="What's New In This Release"
+HREF="x81.html"></HEAD
+><BODY
+CLASS="CHAPTER"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>DejaGnu: The GNU Testing Framework</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="f40.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x81.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="OVERVIEW"
+></A
+>Overview</H1
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="WHATIS"
+></A
+>What is DejaGnu ?</H1
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>DejaGnu</SPAN
+> is a framework for
+	testing other programs.  Its purpose is to provide a single
+	front end for all tests. Think of it as a custom library of
+	Tcl procedures crafted to support writing a test harness. A
+	<I
+CLASS="EMPHASIS"
+>Test Harness</I
+> is the testing
+	infrastructure that is created to support a specific program
+	or tool. Each program can have multiple testsuites, all
+	supported by a single test harness. DejaGnu is written in
+	<SPAN
+CLASS="PRODUCTNAME"
+>Expect</SPAN
+>, which in turn uses
+	<SPAN
+CLASS="PRODUCTNAME"
+>Tcl</SPAN
+> -- Tool command
+	language. There is more information on Tcl at the <A
+HREF="http://www.scriptics.com"
+TARGET="_top"
+>Scriptics</A
+> web site and the
+	Expect web site is at <A
+HREF="http://expect.nist.gov"
+TARGET="_top"
+>NIST</A
+>.</P
+><P
+>Julia Menapace first coined the term ``DejaGnu'' to describe
+        an earlier testing framework at Cygnus Support she had written
+        for <B
+CLASS="COMMAND"
+>GDB</B
+>. When we replaced it with the
+        Expect-based framework, it was like DejaGnu all over again.
+        More importantly, it was also named after my daughter, <A
+HREF="mailto:deja@welcomehome.org"
+TARGET="_top"
+>Deja Snow Savoye</A
+>
+        (now 13 years old as of September 2003), who was a toddler
+        during DejaGnu's beginnings.</P
+><P
+>DejaGnu offers several advantages for testing:</P
+><P
+></P
+><UL
+COMPACT="COMPACT"
+><LI
+STYLE="list-style-type: disc"
+><P
+>The flexibility and consistency of the DejaGnu
+	framework make it easy to write tests for any program, with
+	either batch oriented, or interactive programs.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>DejaGnu provides a layer of abstraction which
+	allows you to write tests that are portable to any host or
+	target where a program must be tested. For instance, a test
+	for <B
+CLASS="COMMAND"
+>GDB</B
+> can run from any supported host
+	system on any supported target system. DejaGnu runs tests on
+	many single board computers, whose operating software ranges
+	from a simple boot monitor to a real-time OS.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>All tests have the same output format. This
+	makes it easy to integrate testing into other software
+	development processes. DejaGnu's output is designed to be
+	parsed by other filtering script and it is also human
+	readable.</P
+></LI
+><LI
+STYLE="list-style-type: disc"
+><P
+>Using Tcl and Expect, it's easy to create wrappers
+      for existing testsuites. By incorporating existing tests under
+      DejaGnu, it's easier to have a single set of report analyse
+      programs..</P
+></LI
+></UL
+><P
+>Running tests requires two things: the testing framework and
+    the testsuites themselves. Tests are usually written in
+    <SPAN
+CLASS="PRODUCTNAME"
+>Expect</SPAN
+> using Tcl, but you can also use
+    a Tcl script to run a testsuite that is not based on
+    <SPAN
+CLASS="PRODUCTNAME"
+>Expect</SPAN
+>. <SPAN
+CLASS="PRODUCTNAME"
+>Expect</SPAN
+>
+    script filenames conventionally use <I
+CLASS="EMPHASIS"
+>.exp</I
+> as a
+    suffix; for example, the main implementation of the DejaGnu test
+    driver is in the file
+    <SPAN
+CLASS="PRODUCTNAME"
+>runtest.exp</SPAN
+>.)</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="f40.html"
+ACCESSKEY="P"
+>&#60;&#60;&#60; Previous</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x81.html"
+ACCESSKEY="N"
+>Next &#62;&#62;&#62;</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Abstract</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>What's New In This Release</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

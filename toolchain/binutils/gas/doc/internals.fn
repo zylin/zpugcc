@@ -1,0 +1,17 @@
+\entry{int}{31}{\code {int}}
+\entry{int}{31}{\code {int}}
+\entry{void}{31}{\code {void}}
+\entry{void}{31}{\code {void}}
+\entry{void}{31}{\code {void}}
+\entry{void}{31}{\code {void}}
+\entry{void}{31}{\code {void}}
+\entry{void}{31}{\code {void}}
+\entry{void}{31}{\code {void}}
+\entry{void}{31}{\code {void}}
+\entry{void}{31}{\code {void}}
+\entry{{\tt \char 123}struct}{31}{\code {{\tt \char 123}struct}}
+\entry{void}{32}{\code {void}}
+\entry{PTR}{32}{\code {PTR}}
+\entry{PTR}{32}{\code {PTR}}
+\entry{{\tt \char 123}const}{32}{\code {{\tt \char 123}const}}
+\entry{{\tt \char 123}const}{32}{\code {{\tt \char 123}const}}

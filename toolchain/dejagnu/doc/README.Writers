@@ -1,0 +1,5 @@
+Conventions:
+
+ * Use DejaGnu, not "Dejagnu" or "Deja Gnu".
+ * Use "testsuite", not "test suite".
+ * Refer to the Tcl, Tk and Expect packages using proper capitalisation.

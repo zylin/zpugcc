@@ -1,0 +1,8 @@
+The maintainers of DejaGnu are:
+
+  Rob Savoye <rob@welcomehome.org>
+  Ben Elliston <bje@wasabisystems.com>
+
+Code should be written to follow Tom Tromey's Tcl style guide:
+
+  http://cafe.colorado.edu/~tromey/tcl-style-guide.html

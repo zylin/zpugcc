@@ -1,0 +1,32 @@
+This is pdfTeXk, Version 3.14159-1.10b (Web2C 7.4.5) (format=pdftex 2004.10.2)  3 OCT 2004 17:43
+ %&-line parsing enabled.
+**/cygdrive/c/eclipse/workspace/ecosboard/zpu/toolchain/binutils/ld/configdoc.t
+exi
+
+(/cygdrive/c/eclipse/workspace/ecosboard/zpu/toolchain/binutils/ld/configdoc.te
+xi{/usr/share/texmf/pdftex/config/pdftex.cfg}
+Overfull \hbox (5.84644pt too wide) in paragraph at lines 1--4
+[]/cmr10/@c ------------------------------ CON-FIG-U-RA-TION VARS: @c 1. In-clu
+-sive-ness of this man-ual @set GENERIC |
+
+\hbox(6.94444+0.0)x469.75499, glue set - 1.0
+.\hbox(0.0+0.0)x20.0
+./cmr10/@
+./cmr10/c
+.\glue 3.33333 plus 1.66666 minus 1.11111
+./cmr10/| (ligature ---)
+.etc.
+
+)
+*q
+! Interruption.
+<*> 
+    q
+? q
+OK, entering \batchmode...
+! Emergency stop.
+<*> q
+     
+*** (job aborted, no legal \end found)
+
+No pages of output.

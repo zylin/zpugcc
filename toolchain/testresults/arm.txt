@@ -1,0 +1,281 @@
+make[1]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/gcc'
+(rootme=`${PWDCMD-pwd}`; export rootme; \
+srcdir=`cd /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc; ${PWDCMD-pwd}` ; export srcdir ; \
+cd testsuite; \
+EXPECT=expect ; export EXPECT ; \
+if [ -f ${rootme}/../expect/expect ] ; then  \
+   TCL_LIBRARY=`cd .. ; cd /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/../tcl/library ; ${PWDCMD-pwd}` ; \
+    export TCL_LIBRARY ; fi ; \
+runtest --tool gcc --target_board=arm-sim)
+WARNING: Couldn't find the global config file.
+Test Run By oyvind on Sat Apr 16 23:07:49 2005
+Target is arm-unknown-elf
+Host   is i686-pc-linux-gnu
+
+		=== gcc tests ===
+
+Schedule of variations:
+    arm-sim
+
+Running target arm-sim
+Using /home/oyvind/workspace/../nobackup/install/share/dejagnu/baseboards/arm-sim.exp as board description file for target.
+Using /home/oyvind/workspace/../nobackup/install/share/dejagnu/config/sim.exp as generic interface file for target.
+Using /home/oyvind/workspace/../nobackup/install/share/dejagnu/baseboards/basic-sim.exp as board description file for target.
+Using /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/config/default.exp as tool-and-target-specific interface file.
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.c-torture/compile/compile.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.c-torture/execute/builtins/builtins.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.c-torture/execute/execute.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.c-torture/execute/ieee/ieee.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.c-torture/unsorted/unsorted.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/compat/compat.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/cpp/cpp.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/cpp/trad/trad.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/debug/debug.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/debug/dwarf2/dwarf2.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/dg.exp ...
+XPASS: gcc.dg/setjmp-1.c spurious clobbered warning (test for bogus messages, line 16)
+XPASS: gcc.dg/uninit-4.c uninitialized variable warning (test for bogus messages, line 26)
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/format/format.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/noncompile/noncompile.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/pch/pch.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/special/mips-abi.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/special/special.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/tls/tls.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/torture/dg-torture.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.dg/weak/weak.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/acker1.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/arm-isr.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/bprob.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/dg-test.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/dhry.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/gcov.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/i386-prefetch.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/linkage.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/matrix1.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/mg.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/sieve.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/gcc.misc-tests/sort2.exp ...
+
+		=== gcc Summary ===
+
+# of expected passes		24258
+# of unexpected successes	2
+# of expected failures		72
+# of unresolved testcases	5
+# of untested testcases		7
+# of unsupported tests		361
+/home/oyvind/nobackup/nonewlib/arm_gcc/gcc/xgcc version 3.4.2
+
+make[1]: [check-gcc] Error 1 (ignored)
+(rootme=`${PWDCMD-pwd}`; export rootme; \
+srcdir=`cd /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc; ${PWDCMD-pwd}` ; export srcdir ; \
+cd testsuite; \
+EXPECT=expect ; export EXPECT ; \
+if [ -f ${rootme}/../expect/expect ] ; then  \
+   TCL_LIBRARY=`cd .. ; cd /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/../tcl/library ; ${PWDCMD-pwd}` ; \
+    export TCL_LIBRARY ; fi ; \
+runtest --tool g++ --target_board=arm-sim)
+WARNING: Couldn't find the global config file.
+Test Run By oyvind on Sat Apr 16 23:40:39 2005
+Target is arm-unknown-elf
+Host   is i686-pc-linux-gnu
+
+		=== g++ tests ===
+
+Schedule of variations:
+    arm-sim
+
+Running target arm-sim
+Using /home/oyvind/workspace/../nobackup/install/share/dejagnu/baseboards/arm-sim.exp as board description file for target.
+Using /home/oyvind/workspace/../nobackup/install/share/dejagnu/config/sim.exp as generic interface file for target.
+Using /home/oyvind/workspace/../nobackup/install/share/dejagnu/baseboards/basic-sim.exp as board description file for target.
+Using /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/config/default.exp as tool-and-target-specific interface file.
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/g++.dg/bprob/bprob.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/g++.dg/compat/compat.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/g++.dg/debug/debug.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/g++.dg/dg.exp ...
+XPASS: g++.dg/other/packed1.C execution test
+XPASS: g++.dg/rtti/tinfo1.C scan-assembler _ZTIP9CTemplateIhE:
+XPASS: g++.dg/rtti/tinfo1.C scan-assembler-not .globl[ \t]+_ZTIP9CTemplateIhE
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/g++.dg/gcov/gcov.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/g++.dg/pch/pch.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/g++.dg/special/ecos.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/g++.dg/tls/tls.exp ...
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/gcc/testsuite/g++.old-deja/old-deja.exp ...
+WARNING: g++.old-deja/g++.mike/p10769a.C compilation failed to produce executable
+WARNING: g++.old-deja/g++.other/enum5.C compilation failed to produce executable
+WARNING: g++.old-deja/g++.pt/friend44.C compilation failed to produce executable
+
+		=== g++ Summary ===
+
+# of expected passes		9557
+# of unexpected successes	3
+# of expected failures		69
+# of unsupported tests		91
+/home/oyvind/nobackup/nonewlib/arm_gcc/gcc/testsuite/../g++ version 3.4.2
+
+make[1]: [check-g++] Error 1 (ignored)
+make[1]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/gcc'
+make[1]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/intl'
+make[1]: Nothing to be done for `check'.
+make[1]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/intl'
+make[1]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/libiberty'
+make[2]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/libiberty/testsuite'
+gcc -DHAVE_CONFIG_H -g -O2 -I.. -I/home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/libiberty/testsuite/../../include  -o test-demangle \
+	/home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/libiberty/testsuite/test-demangle.c ../libiberty.a
+./test-demangle < /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/libiberty/testsuite/demangle-expected
+./test-demangle: 745 tests, 0 failures
+make[2]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/libiberty/testsuite'
+make[1]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/libiberty'
+make[1]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3'
+Making check in include
+make[2]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/include'
+make[2]: Nothing to be done for `check'.
+make[2]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/include'
+Making check in libmath
+make[2]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/libmath'
+make[2]: Nothing to be done for `check'.
+make[2]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/libmath'
+Making check in libsupc++
+make[2]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/libsupc++'
+make[2]: Nothing to be done for `check'.
+make[2]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/libsupc++'
+Making check in src
+make[2]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/src'
+make[2]: Nothing to be done for `check'.
+make[2]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/src'
+Making check in po
+make[2]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/po'
+make[2]: Nothing to be done for `check'.
+make[2]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/po'
+Making check in testsuite
+make[2]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/testsuite'
+make -j1 check-DEJAGNU check-local
+make[3]: Entering directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/testsuite'
+Making a new site.exp file...
+srcdir=`CDPATH="${ZSH_VERSION+.}:" && cd /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/libstdc++-v3/testsuite && pwd`; export srcdir; \
+EXPECT=expect; export EXPECT; \
+runtest=runtest; \
+if /bin/sh -c "$runtest --version" > /dev/null 2>&1; then \
+  l='libstdc++'; for tool in $l; do \
+    $runtest  --tool $tool --srcdir $srcdir --target_board=arm-sim; \
+  done; \
+else echo "WARNING: could not find \`runtest'" 1>&2; :;\
+fi
+WARNING: Couldn't find the global config file.
+Test Run By oyvind on Sat Apr 16 23:51:29 2005
+Target is arm-unknown-elf
+Host   is arm-unknown-elf
+Build  is i686-pc-linux-gnu
+
+		=== libstdc++ tests ===
+
+Schedule of variations:
+    arm-sim
+
+Running target arm-sim
+Using /home/oyvind/workspace/../nobackup/install/share/dejagnu/baseboards/arm-sim.exp as board description file for target.
+Using /home/oyvind/workspace/../nobackup/install/share/dejagnu/config/sim.exp as generic interface file for target.
+Using /home/oyvind/workspace/../nobackup/install/share/dejagnu/baseboards/basic-sim.exp as board description file for target.
+Using /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/libstdc++-v3/testsuite/config/default.exp as tool-and-target-specific interface file.
+Running /home/oyvind/workspace/ecosboard/zpu/toolchain/gcc/libstdc++-v3/testsuite/libstdc++-dg/normal.exp ...
+FAIL: 20_util/allocator/1.cc execution test
+FAIL: 27_io/basic_filebuf/close/char/1.cc execution test
+FAIL: 27_io/basic_filebuf/close/char/2.cc execution test
+FAIL: 27_io/basic_filebuf/close/char/4.cc execution test
+FAIL: 27_io/basic_filebuf/close/char/4879.cc (test for excess errors)
+WARNING: 27_io/basic_filebuf/close/char/4879.cc compilation failed to produce executable
+FAIL: 27_io/basic_filebuf/close/char/9964.cc (test for excess errors)
+WARNING: 27_io/basic_filebuf/close/char/9964.cc compilation failed to produce executable
+FAIL: 27_io/basic_filebuf/imbue/char/13171-2.cc (test for excess errors)
+WARNING: 27_io/basic_filebuf/imbue/char/13171-2.cc compilation failed to produce executable
+FAIL: 27_io/basic_filebuf/imbue/char/13582-2.cc (test for excess errors)
+WARNING: 27_io/basic_filebuf/imbue/char/13582-2.cc compilation failed to produce executable
+FAIL: 27_io/basic_filebuf/imbue/char/2.cc execution test
+FAIL: 27_io/basic_filebuf/in_avail/char/1.cc execution test
+FAIL: 27_io/basic_filebuf/is_open/char/1.cc execution test
+FAIL: 27_io/basic_filebuf/open/char/1.cc execution test
+FAIL: 27_io/basic_filebuf/open/char/2.cc execution test
+FAIL: 27_io/basic_filebuf/open/char/9507.cc (test for excess errors)
+WARNING: 27_io/basic_filebuf/open/char/9507.cc compilation failed to produce executable
+FAIL: 27_io/basic_filebuf/pbackfail/char/9761.cc execution test
+FAIL: 27_io/basic_filebuf/sbumpc/char/1-in.cc execution test
+FAIL: 27_io/basic_filebuf/sbumpc/char/1-io.cc execution test
+FAIL: 27_io/basic_filebuf/sbumpc/char/2-in.cc execution test
+FAIL: 27_io/basic_filebuf/sbumpc/char/2-io.cc execution test
+FAIL: 27_io/basic_filebuf/seekoff/char/1-in.cc execution test
+FAIL: 27_io/basic_filebuf/seekoff/char/1-io.cc execution test
+FAIL: 27_io/basic_filebuf/seekoff/char/2-in.cc execution test
+FAIL: 27_io/basic_filebuf/seekoff/char/2-io.cc execution test
+FAIL: 27_io/basic_filebuf/seekoff/char/3-in.cc execution test
+FAIL: 27_io/basic_filebuf/seekoff/char/3-io.cc execution test
+FAIL: 27_io/basic_filebuf/seekpos/char/1-in.cc execution test
+FAIL: 27_io/basic_filebuf/seekpos/char/1-io.cc execution test
+FAIL: 27_io/basic_filebuf/seekpos/char/2-in.cc execution test
+FAIL: 27_io/basic_filebuf/seekpos/char/2-io.cc execution test
+FAIL: 27_io/basic_filebuf/setbuf/char/1.cc execution test
+FAIL: 27_io/basic_filebuf/sgetc/char/1-in.cc execution test
+FAIL: 27_io/basic_filebuf/sgetc/char/1-io.cc execution test
+FAIL: 27_io/basic_filebuf/sgetc/char/2-in.cc execution test
+FAIL: 27_io/basic_filebuf/sgetc/char/2-io.cc execution test
+FAIL: 27_io/basic_filebuf/sgetn/char/1-in.cc execution test
+FAIL: 27_io/basic_filebuf/sgetn/char/1-io.cc execution test
+FAIL: 27_io/basic_filebuf/sgetn/char/2-in.cc execution test
+FAIL: 27_io/basic_filebuf/sgetn/char/2-io.cc execution test
+FAIL: 27_io/basic_filebuf/sgetn/char/3.cc execution test
+FAIL: 27_io/basic_filebuf/showmanyc/char/9533-1.cc (test for excess errors)
+WARNING: 27_io/basic_filebuf/showmanyc/char/9533-1.cc compilation failed to produce executable
+FAIL: 27_io/basic_filebuf/snextc/char/1-in.cc execution test
+FAIL: 27_io/basic_filebuf/snextc/char/1-io.cc execution test
+FAIL: 27_io/basic_filebuf/snextc/char/2-in.cc execution test
+FAIL: 27_io/basic_filebuf/snextc/char/2-io.cc execution test
+FAIL: 27_io/basic_filebuf/sputbackc/char/1-in.cc execution test
+FAIL: 27_io/basic_filebuf/sputbackc/char/2-in.cc execution test
+FAIL: 27_io/basic_filebuf/sungetc/char/1-in.cc execution test
+FAIL: 27_io/basic_filebuf/sungetc/char/2-in.cc execution test
+FAIL: 27_io/basic_filebuf/underflow/10096.cc execution test
+FAIL: 27_io/basic_filebuf/underflow/char/10097.cc (test for excess errors)
+WARNING: 27_io/basic_filebuf/underflow/char/10097.cc compilation failed to produce executable
+FAIL: 27_io/basic_ifstream/cons/char/1.cc execution test
+FAIL: 27_io/basic_ifstream/open/char/1.cc execution test
+FAIL: 27_io/basic_istream/extractors_other/char/2.cc execution test
+FAIL: 27_io/basic_istream/get/char/2.cc execution test
+FAIL: 27_io/basic_istream/readsome/char/6746-2.cc execution test
+FAIL: 27_io/basic_istream/seekg/char/fstream.cc execution test
+FAIL: 27_io/basic_istream/seekg/char/sstream.cc execution test
+FAIL: 27_io/basic_istream/tellg/char/1.cc execution test
+FAIL: 27_io/basic_istream/tellg/char/fstream.cc execution test
+FAIL: 27_io/basic_istream/tellg/char/sstream.cc execution test
+FAIL: 27_io/basic_ostream/inserters_other/char/1.cc execution test
+FAIL: 27_io/basic_stringbuf/overflow/char/1.cc execution test
+FAIL: 27_io/ios_base/sync_with_stdio/1.cc execution test
+FAIL: 27_io/objects/char/10.cc execution test
+FAIL: 27_io/objects/char/12048-1.cc execution test
+FAIL: 27_io/objects/char/12048-2.cc execution test
+FAIL: 27_io/objects/char/12048-3.cc execution test
+FAIL: 27_io/objects/char/12048-4.cc execution test
+XPASS: 27_io/objects/char/12048-5.cc execution test
+FAIL: 27_io/objects/char/7.cc (test for excess errors)
+WARNING: 27_io/objects/char/7.cc compilation failed to produce executable
+FAIL: 27_io/objects/char/9661-1.cc (test for excess errors)
+WARNING: 27_io/objects/char/9661-1.cc compilation failed to produce executable
+FAIL: ext/stdio_filebuf/char/2.cc execution test
+FAIL: ext/stdio_sync_filebuf/char/12048-1.cc execution test
+FAIL: ext/stdio_sync_filebuf/char/12048-2.cc execution test
+FAIL: ext/stdio_sync_filebuf/char/12048-3.cc execution test
+FAIL: ext/stdio_sync_filebuf/char/12048-4.cc execution test
+
+		=== libstdc++ Summary ===
+
+# of expected passes		1932
+# of unexpected failures	75
+# of unexpected successes	1
+# of expected failures		3
+# of unsupported tests		8
+make[3]: *** [check-DEJAGNU] Error 1
+make[3]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/testsuite'
+make[2]: *** [check-am] Error 2
+make[2]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3/testsuite'
+make[1]: *** [check-recursive] Error 1
+make[1]: Leaving directory `/home/oyvind/nobackup/nonewlib/arm_gcc/arm-elf/libstdc++-v3'
+make: *** [check-target-libstdc++-v3] Error 2

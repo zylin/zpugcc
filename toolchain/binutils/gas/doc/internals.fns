@@ -1,0 +1,9 @@
+\initial {{\tt \char 123}}
+\entry {\code {{\tt \char 123}const}}{32}
+\entry {\code {{\tt \char 123}struct}}{31}
+\initial {I}
+\entry {\code {int}}{31}
+\initial {P}
+\entry {\code {PTR}}{32}
+\initial {V}
+\entry {\code {void}}{31, 32}

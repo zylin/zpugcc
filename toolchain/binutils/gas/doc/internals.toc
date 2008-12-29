@@ -1,0 +1,23 @@
+\unnumbchapentry{Assembler Internals}{0}{1}
+\unnumbchapentry{GAS versions}{0}{2}
+\unnumbsecentry{Original GAS}{0}{0}{2}
+\unnumbsecentry{MANY_SEGMENTS gas version}{0}{0}{2}
+\unnumbsecentry{BFD_ASSEMBLER gas version}{0}{0}{2}
+\unnumbchapentry{Data types}{0}{3}
+\unnumbsecentry{Symbols}{0}{0}{3}
+\unnumbsecentry{Expressions}{0}{0}{7}
+\unnumbsecentry{Fixups}{0}{0}{7}
+\unnumbsecentry{Frags}{0}{0}{8}
+\unnumbchapentry{What GAS does when it runs}{0}{12}
+\unnumbchapentry{Porting GAS}{0}{13}
+\unnumbsecentry{Writing a CPU backend}{0}{0}{13}
+\unnumbsecentry{Writing an object format backend}{0}{0}{24}
+\unnumbsecentry{Writing emulation files}{0}{0}{25}
+\unnumbchapentry{Relaxation}{0}{27}
+\unnumbsecentry{Relaxing with a table}{0}{0}{27}
+\unnumbsecentry{General relaxing}{0}{0}{28}
+\unnumbchapentry{Broken words}{0}{30}
+\unnumbchapentry{Internal functions}{0}{31}
+\unnumbsecentry{Warning and error messages}{0}{0}{31}
+\unnumbsecentry{Hash tables}{0}{0}{31}
+\unnumbchapentry{Test suite}{0}{33}

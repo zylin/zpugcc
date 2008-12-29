@@ -1,0 +1,142 @@
+# The authors hereby grant permission to use, copy, modify, distribute,
+# and license this software and its documentation for any purpose, provided
+# that existing copyright notices are retained in all copies and that this
+# notice is included verbatim in any distributions. No written agreement,
+# license, or royalty fee is required for any of the authorized uses.
+# Modifications to this software may be copyrighted by their authors
+# and need not follow the licensing terms described here, provided that
+# the new terms are clearly indicated on the first page of each file where
+# they apply.
+#
+
+srcdir = @srcdir@
+objdir = .
+srcroot = $(srcdir)/../..
+objroot = $(objdir)/../..
+
+VPATH = $(srcdir) $(srcdir)/..
+
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+host_alias = @host_alias@
+target_alias = @target_alias@
+program_transform_name = @program_transform_name@
+
+bindir = @bindir@
+libdir = @libdir@
+tooldir = $(exec_prefix)/$(target_alias)
+
+# Multilib support variables.
+# TOP is used instead of MULTI{BUILD,SRC}TOP.
+MULTIDIRS =
+MULTISUBDIR =
+MULTIDO = true
+MULTICLEAN = true
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA = @INSTALL_DATA@
+
+SHELL =	/bin/sh
+
+CC = @CC@
+
+AS = @AS@
+AR = @AR@
+LD = @LD@
+RANLIB = @RANLIB@
+AR_FLAGS = qv
+
+OBJDUMP = `if [ -f ${objroot}/../binutils/objdump ] ; \
+	then echo ${objroot}/../binutils/objdump ; \
+	else t='$(program_transform_name)'; echo objdump | sed -e $$t ; fi`
+OBJCOPY = `if [ -f ${objroot}/../binutils/objcopy ] ; \
+	then echo ${objroot}/../binutils/objcopy ; \
+	else t='$(program_transform_name)'; echo objcopy | sed -e $$t ; fi`
+
+SCRIPTS = 
+
+OBJS =    getpid.o kill.o print.o sbrk.o syscalls.o time.o fork.o sleep.o
+
+CFLAGS_FOR_TARGET = -fomit-frame-pointer -Os
+
+CFLAGS = -fomit-frame-pointer -Os
+
+CRT0 = crt0.o
+
+IO = crt_io.o
+
+
+
+
+
+
+#
+# here's all the generic target stuff
+#
+GEN_LDFLAGS=	-L${srcdir}
+BSP=	libbcc.a
+
+# Host specific makefile fragment comes in here.
+@host_makefile_frag@
+
+#
+# build a test program for each target board. Just trying to get
+# it to link is a good test, so we ignore all the errors for now.
+#
+all: ${CRT0} ${IO} ${BSP}
+
+#
+# here's where we build the board support packages for each target
+#
+${BSP}: $(OBJS)
+	${AR} ${ARFLAGS} $@ $(OBJS)
+	${RANLIB} $@
+
+
+
+
+
+.PHONY: install info dvi doc install-info clean-info
+
+clean mostlyclean:
+	rm -f a.out core *.[oais] *-test *.srec *.dis *.x syscall.h
+
+distclean maintainer-clean realclean: clean
+	rm -f Makefile config.status *~
+
+.PHONY: install info install-info clean-info
+install:	install-scripts
+	$(INSTALL_PROGRAM) $(CRT0) $(tooldir)/lib${MULTISUBDIR}/$(CRT0)
+	$(INSTALL_PROGRAM) $(IO) $(tooldir)/lib${MULTISUBDIR}/$(IO)
+	@for bsp in ${BSP}; do\
+	 $(INSTALL_PROGRAM) $${bsp} $(tooldir)/lib${MULTISUBDIR}; \
+	done
+
+# Install the linker script in the correct place.
+install-scripts:
+	if [ -f ${objroot}/../binutils/objdump ] ; then \
+	   objdump="${objroot}/../binutils/objdump"; \
+	else \
+	   t='$(program_transform_name)'; \
+	   objdump=`echo objdump | sed -e $$t`; \
+	fi ; \
+	name=`$$objdump -f $(CRT0) | sed '/^$$/d'`; 
+	name=`$$objdump -f $(IO) | sed '/^$$/d'`; 
+
+doc:
+info:
+install-info:
+clean-info:
+
+Makefile: Makefile.in config.status @host_makefile_frag_path@
+	$(SHELL) config.status
+
+config.status: configure
+	$(SHELL) config.status --recheck
+
+.c.o:
+	$(CC) $(CFLAGS_FOR_TARGET)  $(INCLUDES) -c $(CFLAGS) -fomit-frame-pointer -ffunction-sections -fdata-sections $<
+
+	
