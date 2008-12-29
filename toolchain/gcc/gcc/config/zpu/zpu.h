@@ -88,12 +88,14 @@ extern int target_flags;
 #define ZPU_EQ (1<<20)
 #define ZPU_COMPARE (1<<21)
 #define ZPU_POPPCREL (1<<22)
+#define ZPU_BYTESBIG (1<<23)
+#define ZPU_BITSBIG (1<<24)
 
 
 
 
 
-#define TARGET_SWITCHES_DEFAULT 0x7fffffff
+#define TARGET_SWITCHES_DEFAULT (0x7fffffff&~ZPU_BITSBIG)
 
 
 
@@ -117,6 +119,8 @@ extern int target_flags;
 #define TARGET_EQ ((target_flags & ZPU_EQ)!=0)
 #define TARGET_COMPARE ((target_flags & ZPU_COMPARE)!=0)
 #define TARGET_POPPCREL ((target_flags & ZPU_POPPCREL)!=0)
+#define TARGET_BYTESBIG ((target_flags & ZPU_BYTESBIG)!=0)
+#define TARGET_BITSBIG ((target_flags & ZPU_BITSBIG)!=0)
 
 
 #define TARGET_SWITCHES \
@@ -159,6 +163,10 @@ extern int target_flags;
     { "no-compare", -ZPU_COMPARE, "COMPARE insructions" },\
     { "poppcrel", ZPU_POPPCREL, "POPPCREL insructions" },\
     { "no-poppcrel", -ZPU_POPPCREL, "POPPCREL insructions" },\
+    { "bytesbig", ZPU_BYTESBIG, "Bytes big endian" },\
+    { "no-bytesbig", -ZPU_BYTESBIG, "Bytes big endian" },\
+    { "bitsbig", ZPU_BITSBIG, "Bits big endian" },\
+    { "no-bitsbig", -ZPU_BITSBIG, "Bits big endian" },\
     { "", TARGET_SWITCHES_DEFAULT, "" }\
 }
 
@@ -174,9 +182,9 @@ extern const char *zpu_board_name;
 #define TARGET_VERSION fprintf (stderr, " (ZPU syntax)");
 
 
-#define BITS_BIG_ENDIAN                 0
-#define BYTES_BIG_ENDIAN                1
-#define WORDS_BIG_ENDIAN                1
+#define BITS_BIG_ENDIAN                 TARGET_BITSBIG
+#define BYTES_BIG_ENDIAN                TARGET_BYTESBIG
+#define WORDS_BIG_ENDIAN                TARGET_BYTESBIG
 #define BITS_PER_UNIT                   8
 #define BITS_PER_WORD                   32
 #define UNITS_PER_WORD                  4
