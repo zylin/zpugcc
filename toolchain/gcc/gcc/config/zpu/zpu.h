@@ -63,11 +63,103 @@ extern int target_flags;
 extern int target_flags;
 
 
-#define TARGET_SWITCHES_DEFAULT 0
+
+#define ZPU_MULT (1<<0)
+#define ZPU_DIV (1<<1)
+#define ZPU_MOD (1<<2)
+#define ZPU_NEG (1<<3)
+#define ZPU_LOADSP (1<<4)
+#define ZPU_STORESP (1<<5)
+#define ZPU_PUSHSPADD (1<<6)
+#define ZPU_CALLPCREL (1<<7)
+#define ZPU_CALL (1<<8)
+#define ZPU_ADDSP (1<<9)
+#define ZPU_SUB (1<<10)
+#define ZPU_XOR (1<<11)
+#define ZPU_FLIP (1<<12)
+#define ZPU_ASHIFTRT (1<<13)
+#define ZPU_ASHIFTL (1<<14)
+#define ZPU_SHIFTL (1<<15)
+#define ZPU_NEQBRANCH (1<<16)
+#define ZPU_LSHIFTRT (1<<17)
+
+#define ZPU_BYTEOP (1<<18)
+#define ZPU_SHORTOP (1<<19)
+#define ZPU_EQ (1<<20)
+#define ZPU_COMPARE (1<<21)
+#define ZPU_POPPCREL (1<<22)
+
+
+
+
+
+#define TARGET_SWITCHES_DEFAULT 0x7fffffff
+
+
+
+
+#define TARGET_MULT ((target_flags & ZPU_MULT)!=0)
+#define TARGET_DIV ((target_flags & ZPU_DIV)!=0)
+#define TARGET_MOD ((target_flags & ZPU_MOD)!=0)
+#define TARGET_NEG ((target_flags & ZPU_NEG)!=0)
+#define TARGET_LOADSP ((target_flags & ZPU_LOADSP)!=0)
+#define TARGET_STORESP ((target_flags & ZPU_STORESP)!=0)
+#define TARGET_ADDSP ((target_flags & ZPU_ADDSP)!=0)
+#define TARGET_PUSHSPADD ((target_flags & ZPU_PUSHSPADD)!=0)
+#define TARGET_NEQBRANCH ((target_flags & ZPU_NEQBRANCH)!=0)
+#define TARGET_ASHIFTRT ((target_flags & ZPU_ASHIFTRT)!=0)
+#define TARGET_ASHIFTL ((target_flags & ZPU_ASHIFTL)!=0)
+#define TARGET_LSHIFTRT ((target_flags & ZPU_LSHIFTRT)!=0)
+#define TARGET_CALL ((target_flags & ZPU_CALL)!=0)
+#define TARGET_CALLPCREL ((target_flags & ZPU_CALLPCREL)!=0)
+#define TARGET_BYTEOP ((target_flags & ZPU_BYTEOP)!=0)
+#define TARGET_SHORTOP ((target_flags & ZPU_SHORTOP)!=0)
+#define TARGET_EQ ((target_flags & ZPU_EQ)!=0)
+#define TARGET_COMPARE ((target_flags & ZPU_COMPARE)!=0)
+#define TARGET_POPPCREL ((target_flags & ZPU_POPPCREL)!=0)
+
 
 #define TARGET_SWITCHES \
 { \
-    { "", TARGET_SWITCHES_DEFAULT }						\
+    { "mult", ZPU_MULT, "MULT instruction" },\
+    { "no-mult", -ZPU_MULT, "MULT instruction" },\
+    { "div", ZPU_DIV, "DIV instruction" },\
+    { "no-div", -ZPU_DIV, "DIV instruction" },\
+    { "mod", ZPU_MOD, "MOD instruction" },\
+    { "no-mod", -ZPU_MOD, "MOD instruction" },\
+    { "neg", ZPU_NEG, "NEG instruction" },\
+    { "no-neg", -ZPU_NEG, "NEG instruction" },\
+    { "loadsp", ZPU_LOADSP, "LOADSP instruction" },\
+    { "no-loadsp", -ZPU_LOADSP, "LOADSP instruction" },\
+    { "storesp", ZPU_STORESP, "STORESP instruction" },\
+    { "no-storesp", -ZPU_STORESP, "STORESP instruction" },\
+    { "pushspadd", ZPU_PUSHSPADD, "PUSHSPADD instruction" },\
+    { "no-pushspadd", -ZPU_PUSHSPADD, "PUSHSPADD instruction" },\
+    { "neqbranch", ZPU_NEQBRANCH, "NEQBRANCH instruction" },\
+    { "no-neqbranch", -ZPU_NEQBRANCH, "NEQBRANCH instruction" },\
+    { "addsp", ZPU_ADDSP, "ADDSP instruction" },\
+    { "no-addsp", -ZPU_ADDSP, "ADDSP instruction" },\
+    { "ashiftrt", ZPU_ASHIFTRT, "ASHIFTRIGHT instruction" },\
+    { "no-ashiftrt", -ZPU_ASHIFTRT, "ASHIFTRIGHT instruction" },\
+    { "ashiftl", ZPU_ASHIFTL, "ASHIFTLEFT instruction" },\
+    { "no-ashiftl", -ZPU_ASHIFTL, "ASHIFTLEFT instruction" },\
+    { "lshiftrt", ZPU_LSHIFTRT, "LSHIFTRIGHT instruction" },\
+    { "no-lshiftrt", -ZPU_LSHIFTRT, "LSHIFTRIGHT instruction" },\
+    { "call", ZPU_CALL, "CALL instruction" },\
+    { "no-call", -ZPU_CALL, "CALL instruction" },\
+    { "callpcrel", ZPU_CALLPCREL, "CALLPCREL instruction" },\
+    { "no-callpcrel", -ZPU_CALLPCREL, "CALLPCREL instruction" },\
+    { "shortop", ZPU_SHORTOP, "LOADH/STOREH instructions" },\
+    { "no-shortop", -ZPU_SHORTOP, "LOADH/STOREH instructions" },\
+    { "byteop", ZPU_BYTEOP, "LOADB/STOREB insructions" },\
+    { "no-byteop", -ZPU_BYTEOP, "LOADB/STOREB insructions" },\
+    { "eq", ZPU_EQ, "EQ insructions" },\
+    { "no-eq", -ZPU_EQ, "EQ insructions" },\
+    { "compare", ZPU_COMPARE, "COMPARE insructions" },\
+    { "no-compare", -ZPU_COMPARE, "COMPARE insructions" },\
+    { "poppcrel", ZPU_POPPCREL, "POPPCREL insructions" },\
+    { "no-poppcrel", -ZPU_POPPCREL, "POPPCREL insructions" },\
+    { "", TARGET_SWITCHES_DEFAULT, "" }\
 }
 
 extern const char *zpu_board_name;

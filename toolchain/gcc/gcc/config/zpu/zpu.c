@@ -55,7 +55,7 @@ Boston, MA 02111-1307, USA.  */
 
 const char *zpu_board_name;
 
-#define INTSTACK() 1  /* do we have an internal stack? */
+
 
 static const int MAX_ADDSP=15*4;
 /* GCC's concept of registers and the ZPU's concept of registers sometimes,
@@ -506,18 +506,24 @@ int zpu_binary_operator (rtx op  ATTRIBUTE_UNUSED, enum machine_mode mode ATTRIB
 	    case COMPARE:
 	    case ASHIFT:
 	    case XOR:
-	    case LSHIFTRT:
-	    case ASHIFTRT:
+
+
 		case IOR:
 		case AND:
 		case MINUS:
 		case PLUS:
-		case MULT:
-#if !INTSTACK()
-		case DIV:
-		case MOD:
-#endif
+
 		return 1;
+	    case ASHIFTRT:
+	      return TARGET_ASHIFTRT;
+	    case LSHIFTRT:
+	      return TARGET_LSHIFTRT;
+		case MULT:
+		  return TARGET_MULT;
+		case DIV:
+		  return TARGET_DIV;
+		case MOD:
+		  return TARGET_MOD;
 		
 		default:
 		break;
@@ -777,30 +783,76 @@ static int totalStackOffset(void)
 	return t;
 }
 
-
-static void zpu_loadsp(int offset) 
+static void zpu_pushspadd(int offset) 
 {
-	rtx t;
-	offset-=totalStackOffset();
+  rtx t;
+	if (TARGET_PUSHSPADD)
+	{
+		t=GEN_INT((offset+4)/4);
+		zpu_asm("im %0", &t);
+		zpu_asm("pushspadd", &t);
+	} else
+	{
+		t=GEN_INT(offset);
+		zpu_asm("pushsp", &t);
+		if (offset!=0)
+		  {
+		    zpu_asm("im %0", &t);
+		    zpu_asm("add", &t);
+		  }
+	}
+}
 
+static void zpu_addsp(int offset) 
+{
+  rtx t;
+		t=GEN_INT(offset);
+			if (TARGET_ADDSP)
+			  {
+			    zpu_asm("addsp %0", &t);
+			  } else
+			    {
+			    zpu_asm("pushsp", NULL);
+			    if (offset!=0)
+			      {
+			    zpu_asm("im %0", &t);			    
+			    zpu_asm("add", NULL);			    
+			      }
+			    zpu_asm("load", NULL);			    
+			    zpu_asm("add", NULL);
+			    }
+}
+
+static void zpu_coreloadsp(int offset)
+{
+  rtx t;
 	if (offset<0)
 	{
 		missingOperand();
 	}
 
 	t=GEN_INT(offset);
-	if (offset/4<32)
+	if (TARGET_LOADSP&&(offset/4<32))
 	{
 		zpu_asm("loadsp %0", &t);
 	} else
 	{
-		rtx t=GEN_INT((offset+4)/4);
-		zpu_asm("im %0", &t);
-		zpu_asm("pushspadd", &t);
+		zpu_pushspadd(offset);
 		zpu_asm("load", &t);
 	}
+  
+}
+
+
+static void zpu_loadsp(int offset) 
+{
+
+	offset-=totalStackOffset();
+
+	zpu_coreloadsp(offset);
 	stackOffset-=4;
 }
+
 
 static void zpu_storesp(int offset) 
 {
@@ -812,18 +864,17 @@ static void zpu_storesp(int offset)
 		missingOperand();
 	}
 	
-	if (offset/4<32)
+	if (TARGET_STORESP&&(offset/4<32))
 	{
 		t=GEN_INT(offset);
 		zpu_asm("storesp %0", &t);
 	} else
 	{
-		t=GEN_INT((offset+4)/4);
-		zpu_asm("im %0", &t);
-		zpu_asm("pushspadd", &t);
+		zpu_pushspadd(offset);
 		zpu_asm("store", &t);
 	}
 }
+
 
 
 static int zpu_stack_change(rtx x)
@@ -944,7 +995,16 @@ static const char *zpu_immediate(rtx *operand)
 
 static void zpu_neg(rtx *operand)
 {
+  if (TARGET_NEG)
+    {
 	zpu_asm("neg", operand);
+    } else
+      {
+	/* FIX!!! is this the right sequence? */
+	zpu_asm("im 1", operand);
+	zpu_asm("add", operand);
+	zpu_asm("not", operand);
+      }
 }
 
 
@@ -1015,6 +1075,28 @@ static int zpu_first_push(rtx x, rtx find)
   return 0;
 }
 
+static void zpu_call_asm(void)
+{
+  if (TARGET_CALL)
+    {
+   zpu_asm("call", NULL);
+    } else
+      {
+	
+   zpu_asm("pushsp ; CALL insn - duplicate top of stack", NULL);
+   zpu_asm("load", NULL);
+   zpu_asm("im 6 ; post POPC address", NULL);
+   zpu_asm("pushpc", NULL);
+   zpu_asm("add", NULL);
+   zpu_asm("pushsp", NULL);
+   zpu_asm("im 4", NULL);
+   zpu_asm("add", NULL);
+   zpu_asm("store", NULL);
+   zpu_asm("poppc ; call function ", NULL);
+   
+      }
+}
+
 
 static void zpu_gen_call(rtx *operand)
 {
@@ -1025,7 +1107,7 @@ static void zpu_gen_call(rtx *operand)
 		missingOperand();
 	}
 
-	if (CONSTANT_P(XEXP(operand[0], 0)))
+	if (TARGET_CALLPCREL&&CONSTANT_P(XEXP(operand[0], 0)))
 	{
 		zpu_asm("impcrel %0", operand);
 		zpu_asm("callpcrel", operand);
@@ -1039,7 +1121,8 @@ static void zpu_gen_call(rtx *operand)
 			fprintf(stderr, "ZPU: regStackTop %d\n", regStackTop);
 			missingOperand();
 		}
-		zpu_asm("call", operand);
+		zpu_call_asm();
+
 
 		stackOffset+=4;
 	}
@@ -1290,8 +1373,8 @@ static void push_operand_value(rtx *operand)
 		}
 
 		push_operand_value(&reg);
-		
-		zpu_asm("loadsp 0", operand);
+
+		zpu_coreloadsp(0);		
 		stackOffset-=4;
 		size=GEN_INT(postIncMemSize);
 		zpu_asm("im %0", &size);
@@ -1323,10 +1406,25 @@ static void push_operand_value(rtx *operand)
 					zpu_asm("load", operand);
 					break;
 				case HImode:
-					zpu_asm("loadh", operand);
+				  if (TARGET_SHORTOP)
+				    {
+					zpu_asm("loadh", NULL);
+				    } else
+				      {
+					zpu_asm("im _loadh", NULL);
+					zpu_call_asm();
+				      }
 					break;
 				case QImode:
-					zpu_asm("loadb", operand);
+				  if (TARGET_BYTEOP)
+				    {
+					zpu_asm("loadb", NULL);
+				    } else
+				      {
+					zpu_asm("im _loadb", NULL);
+					zpu_call_asm();
+				      }
+
 					break;
 				default:
 					fprintf(stderr, "FIX!!!! miissing operand\n");
@@ -1342,11 +1440,8 @@ static void push_operand_value(rtx *operand)
 		offset=stackPlusConst(*operand, &found);
 		if (found&&((offset%4)==0))
 		{
-			rtx t;
 			offset-=totalStackOffset();
-			t=GEN_INT((offset+4)/4);
-			zpu_asm("im %0", &t);
-			zpu_asm("pushspadd", NULL);	
+			zpu_pushspadd(offset);
 			stackOffset-=4;
 		} else 
 		if (isFreePopPush(&XEXP(*operand, 0))||isFreePopPush(&XEXP(*operand, 1)))
@@ -1363,9 +1458,7 @@ static void push_operand_value(rtx *operand)
 				offset=addSpRange(XEXP(operand[0], 1), &found);
 				if (found&&(offset<=MAX_ADDSP))
 				{
-					rtx t;
-					t=GEN_INT(offset);
-					zpu_asm("addsp %0", &t);
+					zpu_addsp(offset);
 				} else
 				{
 					push_operand_value(&XEXP(operand[0], 1));
@@ -1374,10 +1467,8 @@ static void push_operand_value(rtx *operand)
 				}
 			} else
 			{
-				rtx t;
 				push_operand_value(&XEXP(operand[0], 1));
-				t=GEN_INT(offset+4);
-				zpu_asm("addsp %0", &t);
+				zpu_addsp(offset+4);
 			}
 		}
 	} else if ((GET_CODE(*operand)==COMPARE)||(GET_CODE(*operand)==MINUS))
@@ -1422,15 +1513,20 @@ static void push_operand_value(rtx *operand)
 	{
 		push_operand_value(&XEXP (*operand, 0));
 		push_operand_value(&XEXP (*operand, 1));
+		if (TARGET_EQ)
+		  {
+		zpu_asm("eq", operand);
+		  } else
+		    {
+		zpu_asm("im _eq", NULL);
+		zpu_call_asm();
+		    }
 		if (GET_CODE(*operand)==NE)
-		{
-			zpu_asm("eq", operand);
+		{   
+
 			zpu_asm("not", operand);
 			zpu_asm("im 1", operand);
 			zpu_asm("and", operand);
-		} else
-		{
-			zpu_asm("eq", operand);
 		}
 		stackOffset+=4;  /* lost one */
 	} else if ((GET_CODE(*operand)==LE)||(GET_CODE(*operand)==GE)||
@@ -1459,40 +1555,57 @@ static void push_operand_value(rtx *operand)
 		{
 			if (equal)
 			{
+			  if (TARGET_COMPARE)
+			    {
 				zpu_asm("ulessthanorequal", operand);
+			    } else
+			      {
+				zpu_asm("im _ulessthanorequal", NULL);
+				zpu_call_asm();
+			      }
 			} else
 			{
+			  if (TARGET_COMPARE)
+			    {
 				zpu_asm("ulessthan", operand);
+			    } else
+			      {
+				zpu_asm("im _ulessthan", NULL);
+				zpu_call_asm();
+			      }
 			}
 		} else 
 		{
 			if (equal)
 			{
+			  if (TARGET_COMPARE)
+			    {
 				zpu_asm("lessthanorequal", operand);
+			    } else
+			      {
+				zpu_asm("im _lessthanorequal", NULL);
+				zpu_call_asm();
+			      }
 			} else
 			{
+			  if (TARGET_COMPARE)
+			    {
 				zpu_asm("lessthan", operand);
+			    } else
+			      {
+				zpu_asm("im _lessthan", NULL);
+				zpu_call_asm();
+			      }
 			}
 		}
 		
 		stackOffset+=4;  /* lost one */
 	} else if (GET_CODE(*operand)==LSHIFTRT)
 	{
-		if ((optimize&&!optimize_size)&&
-		    (GET_CODE(XEXP (*operand, 1))==CONST_INT)&&
-		    (INTVAL(XEXP (*operand, 1))==1))
-		{
-			push_operand_value(&XEXP (*operand, 0));
-			zpu_asm("flip", operand);
-			zpu_asm("addsp 0", operand);
-			zpu_asm("flip", operand);
-		} else
-		{
-			push_operand_value(&XEXP (*operand, 0));
-			push_operand_value(&XEXP (*operand, 1));
-			zpu_asm("lshiftright", operand);
-			stackOffset+=4;  /* lost one */
-		}
+	  push_operand_value(&XEXP (*operand, 0));
+	  push_operand_value(&XEXP (*operand, 1));
+	  zpu_asm("lshiftright", operand);
+	  stackOffset+=4;  /* lost one */
 	} else if (GET_CODE(*operand)==ASHIFTRT)
 	{
 		push_operand_value(&XEXP (*operand, 0));
@@ -1504,7 +1617,7 @@ static void push_operand_value(rtx *operand)
 		if ((GET_CODE(XEXP (*operand, 1))==CONST_INT)&&(INTVAL(XEXP (*operand, 1))==1))
 		{
 			push_operand_value(&XEXP (*operand, 0));
-			zpu_asm("addsp 0", operand);
+			zpu_addsp(0); 
 		} else
 		{
 			push_operand_value(&XEXP (*operand, 0));
@@ -1532,7 +1645,7 @@ static void push_operand_value(rtx *operand)
 				push_operand_value(&XEXP (*operand, 0));
 				while (c>1)
 				{
-					zpu_asm("addsp 0", operand);
+					zpu_addsp(0);
 					c/=2;
 				}
 			}
@@ -1693,10 +1806,25 @@ static void store_to_operand(rtx *operand)
 					zpu_asm("store", operand);
 					break;
 				case HImode:
-					zpu_asm("storeh", operand);
+				  if (TARGET_SHORTOP)
+				    {
+					zpu_asm("storeh", NULL);
+				    } else
+				      {
+					zpu_asm("im _storeh", NULL);
+					zpu_call_asm();
+				      }
 					break;
 				case QImode:
-					zpu_asm("storeb", operand);
+				  if (TARGET_BYTEOP)
+				    {
+					zpu_asm("storeb", NULL);
+				    } else
+				      {
+					zpu_asm("im _storeb", NULL);
+					zpu_call_asm();
+				      }
+
 					break;
 				default:
 					fprintf(stderr, "FIX!!!! Missing operand\n");
@@ -1757,6 +1885,22 @@ const char *zpu_generate_set(rtx insn)
 	return "";
 }
 
+static void zpu_neqbranch(rtx operand)
+{
+
+  zpu_asm("impcrel %0", &operand);
+  if (TARGET_NEQBRANCH)
+    {
+
+	zpu_asm("neqbranch", NULL);
+    } else
+      {
+	zpu_asm("im _neqbranch", NULL);
+	zpu_call_asm();
+      }
+
+}
+
 const char *zpu_generate_if_then_else(rtx operands[], rtx insn ATTRIBUTE_UNUSED)
 {
 	initGenerate(insn);
@@ -1772,8 +1916,8 @@ const char *zpu_generate_if_then_else(rtx operands[], rtx insn ATTRIBUTE_UNUSED)
 		missingOperand();
 	}
 	
-	zpu_asm("impcrel %3", operands);
-	zpu_asm("neqbranch", operands);
+	zpu_neqbranch(operands[3]);
+
 	stackOffset+=4; 
 
 	cleanupGenerate();
@@ -1794,8 +1938,7 @@ const char *zpu_generate_if_not_zero_then_else(rtx operands[], rtx insn ATTRIBUT
 		/* evaluate boolean expression. this RTL contains the two suboperands */
 		push_operand_value(&operands[0]);
 		
-		zpu_asm("impcrel %1", operands);
-		zpu_asm("neqbranch", operands);
+		zpu_neqbranch(operands[1]);
 		stackOffset+=4; 
 	
 		cleanupGenerate();
@@ -1848,8 +1991,15 @@ const char *zpu_jump_pcrel(rtx operands[], rtx insn ATTRIBUTE_UNUSED)
 	}
 
 	/* put address on stack */	
+	if (TARGET_POPPCREL)
+	  {
 	zpu_asm("impcrel %0", operands);
 	zpu_asm("poppcrel", operands);
+	  } else
+	    {
+	zpu_asm("im %0", operands);
+	zpu_asm("poppc", NULL);
+	    }
 	
 	cleanupGenerate();
 	
@@ -2327,40 +2477,19 @@ gen_split_move_double (rtx operands[])
 
 const char *zpu_changestackpointer(rtx operands[], rtx insn)
 {
-#if !INTSTACK()
-	if ((INTVAL(operands[0])<=16)&&(INTVAL(operands[0])>=0))
-	{
-		int i;
-		for (i=0; i<INTVAL(operands[0])/4; i++)
-		{
-			zpu_asm("storesp 0 ; pop value on stack", NULL);
-		}
-		return "";
-	} else if ((INTVAL(operands[0])>=-16)&&(INTVAL(operands[0])<0))
-	{
-		int i;
-		for (i=0; i<(-INTVAL(operands[0]))/4; i++)
-		{
-			zpu_asm("loadsp 0 ; allocate space on stack", NULL);
-		}
-		return "";
-	} else
-#endif		
-	{
-		rtx t[2];
-		rtx set;
-
-		set=single_set(insn);
-		if (set==NULL_RTX)
-		{
-			abort();
-		}
-
-		t[0]=stack_pointer_rtx;
-		t[1]=SET_SRC(set);
-
-		return zpu_generate_move(t, insn);
-	}
+  rtx t[2];
+  rtx set;
+  
+  set=single_set(insn);
+  if (set==NULL_RTX)
+    {
+      abort();
+    }
+  
+  t[0]=stack_pointer_rtx;
+  t[1]=SET_SRC(set);
+  
+  return zpu_generate_move(t, insn);
 }
 
 
