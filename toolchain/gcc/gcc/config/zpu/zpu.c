@@ -139,6 +139,23 @@ static int addSpRange(rtx operand, int *found)
 	return -1;
 }
 
+static void pushHardReg(rtx reg)
+{
+	rtx regAddr=GEN_INT(REGNO(reg)*4);
+
+	if (TARGET_MEMREG)
+	  {
+	zpu_asm("im _memreg+%0", &regAddr);
+	zpu_asm("load", NULL);
+	  } else
+	    {
+	zpu_asm("im %0", &regAddr);
+  zpu_asm("im _regpush", NULL);
+  zpu_asm("call", NULL);
+	    }
+
+}
+
 static void pushRegAddress(rtx operand)
 {
 	/* painful handling of compatiblity with obscure case
@@ -146,12 +163,9 @@ static void pushRegAddress(rtx operand)
 	 */
 	int num;
 	rtx offset;
-	rtx regAddr;
 	
 	num=stackSlotNum(REGNO(operand));
-	regAddr=GEN_INT(REGNO(hard_frame_pointer_rtx)*4);
-	zpu_asm("im %0", &regAddr);
-	zpu_asm("load", NULL);
+	pushHardReg(hard_frame_pointer_rtx);
 	offset=GEN_INT(-(get_frame_size()+calcStackRegSize())+num*4);
 	zpu_immediate(&offset);
 	stackOffset+=4;
@@ -165,10 +179,7 @@ static void pushreg(rtx operand)
 	{
 		if (REGNO(operand)<R_NUM)
 		{
-			rtx addr;
-			addr=GEN_INT(REGNO(operand)*4);
-			zpu_asm("im %0", &addr);
-			zpu_asm("load", &operand);
+		  pushHardReg(operand);
 		} else
 		{
 			missingOperand();
@@ -192,16 +203,32 @@ static void pushreg(rtx operand)
 	}
 }
 
+static void popHardReg(rtx reg)
+{
+  rtx addr;
+  addr=GEN_INT(REGNO(reg)*4);
+
+  if (TARGET_MEMREG)
+    {
+  zpu_asm("im _memreg+%0", &addr);
+  zpu_asm("store", NULL);
+    } else
+      {
+  zpu_asm("im %0", &addr);
+  zpu_asm("im _regpop", NULL);
+  zpu_asm("call", NULL);
+
+      }
+
+}
+
 static void popreg(rtx operand)
 {
 	if (REGNO(operand)<R_STACK_REG)
 	{
 		if (REGNO(operand)<R_NUM)
 		{
-			rtx addr;
-			addr=GEN_INT(REGNO(operand)*4);
-			zpu_asm("im %0", &addr);
-			zpu_asm("store", &operand);
+		  popHardReg(operand);
 		}
 	} else if (REGNO(operand)<R_NUM)
 	{

@@ -90,6 +90,7 @@ extern int target_flags;
 #define ZPU_POPPCREL (1<<22)
 #define ZPU_BYTESBIG (1<<23)
 #define ZPU_BITSBIG (1<<24)
+#define ZPU_MEMREG (1<<25)
 
 
 
@@ -121,6 +122,7 @@ extern int target_flags;
 #define TARGET_POPPCREL ((target_flags & ZPU_POPPCREL)!=0)
 #define TARGET_BYTESBIG ((target_flags & ZPU_BYTESBIG)!=0)
 #define TARGET_BITSBIG ((target_flags & ZPU_BITSBIG)!=0)
+#define TARGET_MEMREG ((target_flags & ZPU_MEMREG)!=0)
 
 
 #define TARGET_SWITCHES \
@@ -167,6 +169,8 @@ extern int target_flags;
     { "no-bytesbig", -ZPU_BYTESBIG, "Bytes big endian" },\
     { "bitsbig", ZPU_BITSBIG, "Bits big endian" },\
     { "no-bitsbig", -ZPU_BITSBIG, "Bits big endian" },\
+    { "memreg", ZPU_MEMREG, "Store r0-r3 in memory location 0-15" },\
+    { "no-memreg", -ZPU_MEMREG, "CALL _regpush and _regpop for r0-r3" },\
     { "", TARGET_SWITCHES_DEFAULT, "" }\
 }
 

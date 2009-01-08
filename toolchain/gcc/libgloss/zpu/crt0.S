@@ -152,7 +152,9 @@ Boston, MA 02111-1307, USA.  */
         .balign 32,0
 # offset 0x0000 0000
 		.globl _start
+			.globl _memreg
 _start:
+_memreg:
 		; intSp must be 0 when we jump to _premain
 		
 		im ZPU_ID
