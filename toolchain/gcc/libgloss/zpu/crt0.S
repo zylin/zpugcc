@@ -43,22 +43,19 @@ Boston, MA 02111-1307, USA.  */
 	.endm
 
 	.macro  jsr address
-	
-			im 0		; save R0
+			im _memreg     	; save R0
 			load
-			im 4		; save R1
+			im _memreg+4	; save R1
 			load
-			im 8		; save R2
+			im _memreg+8	; save R2
 			load
-	
 			fixedim \address
 			call
-			
-			im 8
+			im _memreg+8
 			store		; restore R2
-			im 4
+			im _memreg+4
 			store		; restore R1
-			im 0
+			im _memreg
 			store		; restore R0
 	.endm
 
@@ -77,15 +74,15 @@ Boston, MA 02111-1307, USA.  */
 	
 	.macro cimpl funcname
 	; save R0
-	im 0
+	im _memreg
 	load
 	
 	; save R1
-	im 4
+	im _memreg+4
 	load
 	
 	; save R2
-	im 8
+	im _memreg+8
 	load
 	
 	loadsp 20
@@ -98,22 +95,22 @@ Boston, MA 02111-1307, USA.  */
 	storesp 0
 	storesp 0	
 	 
-	im 0
+	im _memreg
 	load
 	
 	; poke the result into the right slot
 	storesp 24
 
 	; restore R2
-	im 8
+	im _memreg+8
 	store
 	
 	; restore R1
-	im 4
+	im _memreg+4
 	store
 	
 	; restore r0
-	im 0
+	im _memreg
 	store
 	
 	
@@ -152,7 +149,8 @@ Boston, MA 02111-1307, USA.  */
         .balign 32,0
 # offset 0x0000 0000
 		.globl _start
-			.globl _memreg
+		.globl _memreg
+		.weak _memreg
 _start:
 _memreg:
 		; intSp must be 0 when we jump to _premain
@@ -170,9 +168,7 @@ _memreg:
 # offset 0x0000 0020
 		.globl _zpu_interrupt_vector
 _zpu_interrupt_vector:
-		jsr _zpu_interrupt
-		poppc
-
+		jmp ___zpu_interrupt_vector
 
 /* instruction emulation code */
 
@@ -676,13 +672,13 @@ _storeb:
 # offset 0x0000 02a0
 	.balign 32,0
 _div:
-	cimpl __divsi3
+	jmp ___div
 	
 # opcode 54
 # offset 0x0000 02c0
 	.balign 32,0
 _mod:
-	cimpl __modsi3
+	jmp ___mod
 
 # opcode 55
 # offset 0x0000 02e0
@@ -940,7 +936,15 @@ _slowmultImpl:
 	storesp 12
 	storesp 4
 	poppc
-	
+
+___mod:
+	cimpl __modsi3
+___div:
+	cimpl __divsi3
+___zpu_interrupt_vector:
+	jsr _zpu_interrupt
+	poppc
+
 	.data
 	.balign 4,0
 _mask:
