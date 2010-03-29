@@ -1532,7 +1532,7 @@ collect_execute (const char *prog, char **argv, const char *redir)
   if (redir)
     {
       /* Open response file.  */
-      redir_handle = open (redir, O_WRONLY | O_TRUNC | O_CREAT);
+      redir_handle = open (redir, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 
       /* Duplicate the stdout and stderr file handles
 	 so they can be restored later.  */
