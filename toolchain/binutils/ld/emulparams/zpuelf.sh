@@ -27,4 +27,4 @@ CTOR_END='___ctors_end = .;'
 DTOR_START='___dtors = .;'
 DTOR_END='___dtors_end = .;'
 
-STACK_ADDR=(0x1000000-0x10000)
+STACK_ADDR='(0x1000000-0x10000)'
