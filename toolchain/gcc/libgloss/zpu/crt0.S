@@ -941,6 +941,10 @@ ___mod:
 	cimpl __modsi3
 ___div:
 	cimpl __divsi3
+
+        .globl ___zpu_interrupt_vector
+        .weak ___zpu_interrupt_vector
+
 ___zpu_interrupt_vector:
 	jsr _zpu_interrupt
 	poppc
