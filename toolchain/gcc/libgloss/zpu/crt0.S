@@ -949,7 +949,7 @@ ___zpu_interrupt_vector:
 	jsr _zpu_interrupt
 	poppc
 
-	.data
+	.section ".rodata"
 	.balign 4,0
 _mask:
 	.long 0x00ffffff
@@ -957,6 +957,8 @@ _mask:
 	.long 0xffff00ff
 	.long 0xffffff00
 
+	.data
+	.balign 4,0
 	
 	.globl _hardware
 _hardware:
