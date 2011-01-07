@@ -2091,7 +2091,9 @@ coff_write_armap (bfd *arch,
 
   memset (&hdr, 0, sizeof (struct ar_hdr));
   hdr.ar_name[0] = '/';
-  sprintf (hdr.ar_size, "%-10d", (int) mapsize);
+  char tmpbuf[12]; // \0 and possibly - (negative)
+  sprintf (tmpbuf, "%-10d", (int) mapsize);
+  memcpy(hdr.ar_size, tmpbuf, 10);
   sprintf (hdr.ar_date, "%ld", (long) time (NULL));
   /* This, at least, is what Intel coff sets the values to.  */
   sprintf ((hdr.ar_uid), "%d", 0);
