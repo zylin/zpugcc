@@ -1028,9 +1028,10 @@ static void zpu_neg(rtx *operand)
     } else
       {
 	/* FIX!!! is this the right sequence? */
+   	/* No, it wasn't, "Not" should come first - AMR.*/ 
+	zpu_asm("not", operand);
 	zpu_asm("im 1", operand);
 	zpu_asm("add", operand);
-	zpu_asm("not", operand);
       }
 }
 
