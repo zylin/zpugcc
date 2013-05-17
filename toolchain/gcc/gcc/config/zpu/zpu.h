@@ -165,10 +165,6 @@ extern int target_flags;
     { "no-compare", -ZPU_COMPARE, "COMPARE insructions" },\
     { "poppcrel", ZPU_POPPCREL, "POPPCREL insructions" },\
     { "no-poppcrel", -ZPU_POPPCREL, "POPPCREL insructions" },\
-    { "bytesbig", ZPU_BYTESBIG, "Bytes big endian" },\
-    { "no-bytesbig", -ZPU_BYTESBIG, "Bytes big endian" },\
-    { "bitsbig", ZPU_BITSBIG, "Bits big endian" },\
-    { "no-bitsbig", -ZPU_BITSBIG, "Bits big endian" },\
     { "memreg", ZPU_MEMREG, "Store r0-r3 in memory location 0-15" },\
     { "no-memreg", -ZPU_MEMREG, "CALL _regpush and _regpop for r0-r3" },\
     { "", TARGET_SWITCHES_DEFAULT, "" }\
@@ -186,9 +182,9 @@ extern const char *zpu_board_name;
 #define TARGET_VERSION fprintf (stderr, " (ZPU syntax)");
 
 
-#define BITS_BIG_ENDIAN                 TARGET_BITSBIG
-#define BYTES_BIG_ENDIAN                TARGET_BYTESBIG
-#define WORDS_BIG_ENDIAN                TARGET_BYTESBIG
+#define BITS_BIG_ENDIAN                 0 /* TARGET_BITSBIG */
+#define BYTES_BIG_ENDIAN                1 /* TARGET_BYTESBIG */
+#define WORDS_BIG_ENDIAN                1 /* TARGET_BYTESBIG */
 #define BITS_PER_UNIT                   8
 #define BITS_PER_WORD                   32
 #define UNITS_PER_WORD                  4
