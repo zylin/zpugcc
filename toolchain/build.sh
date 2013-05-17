@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 rm -rf build
 mkdir build
@@ -7,6 +8,7 @@ make
 make install
 cd ..
 
+export PATH=`pwd`/install/bin:$PATH
 rm -rf gccbuild
 mkdir gccbuild
 cd gccbuild
