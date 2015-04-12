@@ -3,6 +3,7 @@ set -e
 rm -rf build
 mkdir build
 cd build
+export CFLAGS=-D_FORTIFY_SOURCE=0
 ../binutils/configure --target=zpu-elf --prefix=`pwd`/../install
 make
 make install
