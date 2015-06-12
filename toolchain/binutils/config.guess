@@ -797,7 +797,7 @@ EOF
 	case ${LIBC} in gnu) kernel_only='k' ;; esac
 	echo ${UNAME_MACHINE}-unknown-${kernel_only}freebsd`echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'`${LIBC:+-$LIBC}
 	exit 0 ;;
-    i*:CYGWIN*:*)
+    *:CYGWIN*:*)
 	echo ${UNAME_MACHINE}-pc-cygwin
 	exit 0 ;;
     i*:MINGW*:*)
