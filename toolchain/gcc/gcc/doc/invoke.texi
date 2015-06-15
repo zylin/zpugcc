@@ -156,7 +156,7 @@ in the following sections.
 @item Overall Options
 @xref{Overall Options,,Options Controlling the Kind of Output}.
 @gccoptlist{-c  -S  -E  -o @var{file}  -pipe  -pass-exit-codes  @gol
--x @var{language}  -v  -###  --help  --target-help  --version}
+-x @var{language}  -v  -###  --help  --target-help  --version @@@var{file} }
 
 @item C Language Options
 @xref{C Dialect Options,,Options Controlling C Dialect}.
@@ -927,6 +927,14 @@ line options for each tool.
 @item --version
 @opindex version
 Display the version number and copyrights of the invoked GCC.
+
+@item @@@var{file}
+@opindex @@
+Read command-line options from @var{file}.  The content of the
+@var{file} is separated into whitespace-separated strings.  Each
+string is treated as a command-line option.  The options read from the
+file are inserted in place of the @@@var{file} option.
+
 @end table
 
 @node Invoking G++

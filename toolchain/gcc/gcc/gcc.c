@@ -5955,6 +5955,8 @@ main (int argc, const char **argv)
   signal (SIGCHLD, SIG_DFL);
 #endif
 
+  expandargv (&argc, &argv);
+
   /* Allocate the argument vector.  */
   alloc_args ();
 
