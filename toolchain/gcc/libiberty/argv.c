@@ -24,8 +24,9 @@ Boston, MA 02111-1307, USA.  */
 
 #include "ansidecl.h"
 #include "libiberty.h"
+#include "safe-ctype.h"
 
-#define ISBLANK(ch) ((ch) == ' ' || (ch) == '\t')
+#include <stdio.h>
 
 /*  Routines imported from standard C runtime libraries. */
 
@@ -174,8 +175,7 @@ returned, as appropriate.
 
 */
 
-char **buildargv (input)
-     const char *input;
+char **buildargv (const char *input)
 {
   char *arg;
   char *copybuf;
@@ -228,7 +228,7 @@ char **buildargv (input)
 	  arg = copybuf;
 	  while (*input != EOS)
 	    {
-	      if (ISBLANK (*input) && !squote && !dquote && !bsquote)
+	      if (ISSPACE (*input) && !squote && !dquote && !bsquote)
 		{
 		  break;
 		}
@@ -294,7 +294,7 @@ char **buildargv (input)
 	  argc++;
 	  argv[argc] = NULL;
 
-	  while (ISBLANK (*input))
+	  while (ISSPACE (*input))
 	    {
 	      input++;
 	    }
@@ -302,6 +302,114 @@ char **buildargv (input)
       while (*input != EOS);
     }
   return (argv);
+}
+
+/*
+
+@deftypefn Extension void expandargv (int *@var{argcp}, char ***@var{argvp})
+
+The @var{argcp} and @code{argvp} arguments are pointers to the usual
+@code{argc} and @code{argv} arguments to @code{main}.  This function
+looks for arguments that begin with the character @samp{@@}.  Any such
+arguments are interpreted as ``response files''.  The contents of the
+response file are interpreted as additional command line options.  In
+particular, the file is separated into whitespace-separated strings;
+each such string is taken as a command-line option.  The new options
+are inserted in place of the option naming the response file, and
+@code{*argcp} and @code{*argvp} will be updated.  If the value of
+@code{*argvp} is modified by this function, then the new value has
+been dynamically allocated and can be deallocated by the caller with
+@code{freeargv}.  However, most callers will simply call
+@code{expandargv} near the beginning of @code{main} and allow the
+operating system to free the memory when the program exits.
+
+@end deftypefn
+
+*/
+
+void
+expandargv (int *argcp, const char ***argvp)
+{
+  /* The argument we are currently processing.  */
+  int i = 0;
+  /* Non-zero if ***argvp has been dynamically allocated.  */
+  int argv_dynamic = 0;
+  /* Loop over the arguments, handling response files.  We always skip
+     ARGVP[0], as that is the name of the program being run.  */
+  while (++i < *argcp)
+    {
+      /* The name of the response file.  */
+      const char *filename;
+      /* The response file.  */
+      FILE *f;
+      /* The number of characters in the response file.  */
+      long pos;
+      /* A dynamically allocated buffer used to hold options read from a
+	 response file.  */
+      char *buffer;
+      /* Dynamically allocated storage for the options read from the
+	 response file.  */
+      char **file_argv;
+      /* The number of options read from the response file, if any.  */
+     size_t file_argc;
+      /* We are only interested in options of the form "@file".  */
+      filename = (*argvp)[i];
+      if (filename[0] != '@')
+	continue;
+      /* Read the contents of the file.  */
+      f = fopen (++filename, "r");
+      if (!f)
+	continue;
+      if (fseek (f, 0L, SEEK_END) == -1)
+	goto error;
+      pos = ftell (f);
+      if (pos == -1)
+	goto error;
+      if (fseek (f, 0L, SEEK_SET) == -1)
+	goto error;
+      buffer = (char *) xmalloc (pos * sizeof (char) + 1);
+      if (fread (buffer, sizeof (char), pos, f) != (size_t) pos)
+	goto error;
+      /* Add a NUL terminator.  */
+      buffer[pos] = '\0';
+      /* Parse the string.  */
+      file_argv = buildargv (buffer);
+      /* If *ARGVP is not already dynamically allocated, copy it.  */
+      if (!argv_dynamic)
+	{
+	  *argvp = dupargv (*argvp);
+	  if (!*argvp)
+	    /* We do not know exactly many bytes dupargv tried to
+	       allocate, so make a guess.  */
+	    xmalloc_failed (*argcp * 32);
+	}
+      /* Count the number of arguments.  */
+      file_argc = 0;
+      while (file_argv[file_argc] && *file_argv[file_argc])
+	++file_argc;
+      /* Now, insert FILE_ARGV into ARGV.  The "+1" below handles the
+	 NULL terminator at the end of ARGV.  */ 
+      *argvp = ((char **) 
+		xrealloc (*argvp, 
+			  (*argcp + file_argc + 1) * sizeof (char *)));
+      memmove (*argvp + i + file_argc, *argvp + i + 1, 
+	       (*argcp - i) * sizeof (char *));
+      memcpy (*argvp + i, file_argv, file_argc * sizeof (char *));
+      /* The original option has been replaced by all the new
+	 options.  */
+      *argcp += file_argc - 1;
+      /* Free up memory allocated to process the response file.  We do
+	 not use freeargv because the individual options in FILE_ARGV
+	 are now in the main ARGV.  */
+      free (file_argv);
+      free (buffer);
+      /* Rescan all of the arguments just read to support response
+	 files that include other response files.  */
+      --i;
+    error:
+      /* We're all done with the file now.  */
+      fclose (f);
+    }
 }
 
 #ifdef MAIN

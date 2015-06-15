@@ -417,7 +417,8 @@ $(CONFIGURED_OFILES): stamp-picdir
 
 _doprnt.o: config.h $(INCDIR)/ansidecl.h $(INCDIR)/safe-ctype.h
 alloca.o: config.h $(INCDIR)/ansidecl.h $(INCDIR)/libiberty.h
-argv.o: $(INCDIR)/ansidecl.h $(INCDIR)/libiberty.h
+argv.o: $(INCDIR)/ansidecl.h $(INCDIR)/libiberty.h \
+	$(INCDIR)/safe-ctype.h
 asprintf.o: $(INCDIR)/ansidecl.h $(INCDIR)/libiberty.h
 atexit.o: config.h
 basename.o: $(INCDIR)/ansidecl.h $(INCDIR)/libiberty.h \
