@@ -1,3 +1,13 @@
+
+2016-02-19  Jakub Jelinek  <jakub@redhat.com>
+	    Bernd Edlinger  <bernd.edlinger@hotmail.de>
+
+	* Make-lang.in: Invoke gperf with -L C++.
+	* cfns.gperf: Remove prototypes for hash and libc_name_p
+	inlines.
+	* cfns.h: Regenerated.
+	* except.c (nothrow_libfn_p): Adjust.
+
 2004-09-06  Release Manager
 
 	* GCC 3.4.2 released.
@@ -1552,5 +1562,5 @@ i2004-06-11  Mark Mitchell  <mark@codesourcery.com>
 	(cp_parser_namespace_name): Likewise.
 	(cp_parser_class_name): Likewise.
 	(cp_parser_lookup_name_simple): Likewise.
-
+	
 See ChangeLog.3 for earlier changes.
